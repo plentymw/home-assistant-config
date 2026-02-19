@@ -36,6 +36,18 @@ template:
 
       - name: Shop Sun Full
         state: "{{ states('input_text.shop_sun') }}"
-homeassistant:
-  packages: !include_dir_named packages
-# test from work pc
+lovelace:
+  dashboards:
+    year-planner:
+      mode: yaml
+      title: Year Planner
+      icon: mdi:calendar
+      show_in_sidebar: true
+      filename: dashboards/year-planner.yaml
+
+    kitchen-calendar:
+      mode: yaml
+      title: Kitchen Calendar
+      icon: mdi:home
+      show_in_sidebar: true
+      filename: dashboards/kitchen-calendar.yaml
