@@ -1,0 +1,30 @@
+# Logs
+home-assistant.log*
+*.log
+
+# Databases (recorder)
+*.db
+*.db-shm
+*.db-wal
+
+# HA runtime / locks
+.ha_run.lock
+
+# UI storage (contains tokens and is noisy)
+.storage/
+
+# Cloud / auth / tokens
+.cloud/
+ms365_storage/
+**/*.token
+**/*token-cache*
+
+# Backups / temp
+backups/
+tmp/
+tts/
+
+# HACS frontend build artefacts (huge/noisy)
+custom_components/hacs/hacs_frontend/static/
+custom_components/hacs/hacs_frontend/entrypoint.js
+custom_components/hacs/hacs_frontend/version.py
