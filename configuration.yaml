@@ -38,4 +38,4 @@ template:
         state: "{{ states('input_text.shop_sun') }}"
 homeassistant:
   packages: !include_dir_named packages
-
+# test from work pc
