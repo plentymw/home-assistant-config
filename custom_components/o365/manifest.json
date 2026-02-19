@@ -1,0 +1,24 @@
+{
+  "domain": "o365",
+  "name": "Office 365",
+  "codeowners": [
+    "@RogerSelwyn"
+  ],
+  "dependencies": [
+    "configurator",
+    "http"
+  ],
+  "documentation": "https://github.com/RogerSelwyn/O365-HomeAssistant",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/RogerSelwyn/O365-HomeAssistant/issues",
+  "loggers": [
+    "custom_components.o365",
+    "O365"
+  ],
+  "requirements": [
+    "O365>=2.1.4",
+    "BeautifulSoup4>=4.10.0",
+    "oauthlib"
+  ],
+  "version": "v5.3.5"
+}

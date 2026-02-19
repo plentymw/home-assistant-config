@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_text",
+  "data": {
+    "items": [
+      {
+        "id": "monday_meal",
+        "name": "Monday Meal",
+        "max": 100,
+        "mode": "text",
+        "min": 0
+      },
+      {
+        "id": "tuesday_meal",
+        "name": "Tuesday Meal",
+        "max": 100,
+        "mode": "text",
+        "min": 0
+      },
+      {
+        "id": "wednesday_meal",
+        "name": "Wednesday Meal",
+        "max": 100,
+        "mode": "text",
+        "min": 0
+      },
+      {
+        "id": "thursday_meal",
+        "name": "Thursday Meal",
+        "max": 100,
+        "mode": "text",
+        "min": 0
+      },
+      {
+        "id": "friday_meal",
+        "name": "Friday Meal",
+        "max": 100,
+        "mode": "text",
+        "min": 0
+      },
+      {
+        "id": "saturday_meal",
+        "name": "Saturday Meal",
+        "max": 100,
+        "mode": "text",
+        "min": 0
+      },
+      {
+        "id": "sunday_meal",
+        "name": "Sunday Meal",
+        "max": 100,
+        "mode": "text",
+        "min": 0
+      },
+      {
+        "id": "shop_wed",
+        "name": "Shop Wed",
+        "max": 255,
+        "mode": "text",
+        "min": 0
+      },
+      {
+        "id": "shop_sun",
+        "name": "Shop Sun",
+        "max": 255,
+        "mode": "text",
+        "min": 0
+      }
+    ]
+  }
+}

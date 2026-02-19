@@ -1,0 +1,3 @@
+meal_planner:
+  module: meal_planner
+  class: MealPlanner

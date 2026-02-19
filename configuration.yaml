@@ -1,0 +1,41 @@
+default_config:
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+homeassistant:
+  packages: !include_dir_named packages
+
+sensor:
+  - platform: time_date
+    display_options:
+      - time
+      - date
+
+template:
+  - sensor:
+      - name: Kitchen Date Nice
+        state: "{{ now().strftime('%a %d %b') }}"
+
+      - name: Kitchen Weather Line
+        state: >
+          {% set cond = states('weather.met_office_shawlands') %}
+          {% set t = state_attr('weather.met_office_shawlands','temperature') %}
+          {{ (cond | title) ~ '  ' ~ ((t | round(0)) if t is number else t) ~ '°C' }}
+
+      - name: Kitchen Temp
+        state: "{{ state_attr('weather.met_office_shawlands','temperature') | round(0) }}"
+        unit_of_measurement: "°C"
+
+      - name: Shop Wed Full
+        state: "{{ states('input_text.shop_wed') }}"
+
+      - name: Shop Sun Full
+        state: "{{ states('input_text.shop_sun') }}"
+homeassistant:
+  packages: !include_dir_named packages
+

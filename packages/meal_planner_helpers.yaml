@@ -1,0 +1,240 @@
+# /config/packages/meal_planner_helpers.yaml
+# Helpers required by the Meal Planner dashboard you pasted
+
+input_text:
+  # Prep notes
+  prep_notes_mon: { name: Prep Notes Mon, max: 255 }
+  prep_notes_tue: { name: Prep Notes Tue, max: 255 }
+  prep_notes_wed: { name: Prep Notes Wed, max: 255 }
+  prep_notes_thu: { name: Prep Notes Thu, max: 255 }
+  prep_notes_fri: { name: Prep Notes Fri, max: 255 }
+  prep_notes_sat: { name: Prep Notes Sat, max: 255 }
+  prep_notes_sun: { name: Prep Notes Sun, max: 255 }
+
+  # Cook notes
+  cook_notes_mon: { name: Cook Notes Mon, max: 255 }
+  cook_notes_tue: { name: Cook Notes Tue, max: 255 }
+  cook_notes_wed: { name: Cook Notes Wed, max: 255 }
+  cook_notes_thu: { name: Cook Notes Thu, max: 255 }
+  cook_notes_fri: { name: Cook Notes Fri, max: 255 }
+  cook_notes_sat: { name: Cook Notes Sat, max: 255 }
+  cook_notes_sun: { name: Cook Notes Sun, max: 255 }
+
+  # Food shop lists referenced by your dashboard
+  wed_food_shop_list: { name: Wednesday Food Shop List, max: 255 }
+  sun_food_shop_list: { name: Sunday Food Shop List, max: 255 }
+
+input_select:
+  # Options used by meal dropdowns
+  meal_template:
+    name: Meal Template (internal)
+    options: &meal_opts
+      - "—"
+      - Japanese Chicken
+      - Steak
+      - Salmon
+      - Omlette
+
+  breakfast_template:
+    name: Breakfast Template (internal)
+    options: &breakfast_opts
+      - "—"
+      - Oats
+      - Eggs
+      - Yogurt + fruit
+      - Toast
+      - Smoothie
+
+  # Dinner per person (dashboard uses meal_dinner_mon_michael etc)
+  meal_dinner_mon_michael: { name: Dinner Mon Michael, options: *meal_opts }
+  meal_dinner_tue_michael: { name: Dinner Tue Michael, options: *meal_opts }
+  meal_dinner_wed_michael: { name: Dinner Wed Michael, options: *meal_opts }
+  meal_dinner_thu_michael: { name: Dinner Thu Michael, options: *meal_opts }
+  meal_dinner_fri_michael: { name: Dinner Fri Michael, options: *meal_opts }
+  meal_dinner_sat_michael: { name: Dinner Sat Michael, options: *meal_opts }
+  meal_dinner_sun_michael: { name: Dinner Sun Michael, options: *meal_opts }
+
+  meal_dinner_mon_lorna: { name: Dinner Mon Lorna, options: *meal_opts }
+  meal_dinner_tue_lorna: { name: Dinner Tue Lorna, options: *meal_opts }
+  meal_dinner_wed_lorna: { name: Dinner Wed Lorna, options: *meal_opts }
+  meal_dinner_thu_lorna: { name: Dinner Thu Lorna, options: *meal_opts }
+  meal_dinner_fri_lorna: { name: Dinner Fri Lorna, options: *meal_opts }
+  meal_dinner_sat_lorna: { name: Dinner Sat Lorna, options: *meal_opts }
+  meal_dinner_sun_lorna: { name: Dinner Sun Lorna, options: *meal_opts }
+
+  meal_dinner_mon_izzy: { name: Dinner Mon Izzy, options: *meal_opts }
+  meal_dinner_tue_izzy: { name: Dinner Tue Izzy, options: *meal_opts }
+  meal_dinner_wed_izzy: { name: Dinner Wed Izzy, options: *meal_opts }
+  meal_dinner_thu_izzy: { name: Dinner Thu Izzy, options: *meal_opts }
+  meal_dinner_fri_izzy: { name: Dinner Fri Izzy, options: *meal_opts }
+  meal_dinner_sat_izzy: { name: Dinner Sat Izzy, options: *meal_opts }
+  meal_dinner_sun_izzy: { name: Dinner Sun Izzy, options: *meal_opts }
+
+  # Lunch per person
+  meal_lunch_mon_michael: { name: Lunch Mon Michael, options: *meal_opts }
+  meal_lunch_tue_michael: { name: Lunch Tue Michael, options: *meal_opts }
+  meal_lunch_wed_michael: { name: Lunch Wed Michael, options: *meal_opts }
+  meal_lunch_thu_michael: { name: Lunch Thu Michael, options: *meal_opts }
+  meal_lunch_fri_michael: { name: Lunch Fri Michael, options: *meal_opts }
+  meal_lunch_sat_michael: { name: Lunch Sat Michael, options: *meal_opts }
+  meal_lunch_sun_michael: { name: Lunch Sun Michael, options: *meal_opts }
+
+  meal_lunch_mon_lorna: { name: Lunch Mon Lorna, options: *meal_opts }
+  meal_lunch_tue_lorna: { name: Lunch Tue Lorna, options: *meal_opts }
+  meal_lunch_wed_lorna: { name: Lunch Wed Lorna, options: *meal_opts }
+  meal_lunch_thu_lorna: { name: Lunch Thu Lorna, options: *meal_opts }
+  meal_lunch_fri_lorna: { name: Lunch Fri Lorna, options: *meal_opts }
+  meal_lunch_sat_lorna: { name: Lunch Sat Lorna, options: *meal_opts }
+  meal_lunch_sun_lorna: { name: Lunch Sun Lorna, options: *meal_opts }
+
+  meal_lunch_mon_izzy: { name: Lunch Mon Izzy, options: *meal_opts }
+  meal_lunch_tue_izzy: { name: Lunch Tue Izzy, options: *meal_opts }
+  meal_lunch_wed_izzy: { name: Lunch Wed Izzy, options: *meal_opts }
+  meal_lunch_thu_izzy: { name: Lunch Thu Izzy, options: *meal_opts }
+  meal_lunch_fri_izzy: { name: Lunch Fri Izzy, options: *meal_opts }
+  meal_lunch_sat_izzy: { name: Lunch Sat Izzy, options: *meal_opts }
+  meal_lunch_sun_izzy: { name: Lunch Sun Izzy, options: *meal_opts }
+
+  # Breakfast per person
+  meal_breakfast_mon_michael: { name: Breakfast Mon Michael, options: *breakfast_opts }
+  meal_breakfast_tue_michael: { name: Breakfast Tue Michael, options: *breakfast_opts }
+  meal_breakfast_wed_michael: { name: Breakfast Wed Michael, options: *breakfast_opts }
+  meal_breakfast_thu_michael: { name: Breakfast Thu Michael, options: *breakfast_opts }
+  meal_breakfast_fri_michael: { name: Breakfast Fri Michael, options: *breakfast_opts }
+  meal_breakfast_sat_michael: { name: Breakfast Sat Michael, options: *breakfast_opts }
+  meal_breakfast_sun_michael: { name: Breakfast Sun Michael, options: *breakfast_opts }
+
+  meal_breakfast_mon_lorna: { name: Breakfast Mon Lorna, options: *breakfast_opts }
+  meal_breakfast_tue_lorna: { name: Breakfast Tue Lorna, options: *breakfast_opts }
+  meal_breakfast_wed_lorna: { name: Breakfast Wed Lorna, options: *breakfast_opts }
+  meal_breakfast_thu_lorna: { name: Breakfast Thu Lorna, options: *breakfast_opts }
+  meal_breakfast_fri_lorna: { name: Breakfast Fri Lorna, options: *breakfast_opts }
+  meal_breakfast_sat_lorna: { name: Breakfast Sat Lorna, options: *breakfast_opts }
+  meal_breakfast_sun_lorna: { name: Breakfast Sun Lorna, options: *breakfast_opts }
+
+  meal_breakfast_mon_izzy: { name: Breakfast Mon Izzy, options: *breakfast_opts }
+  meal_breakfast_tue_izzy: { name: Breakfast Tue Izzy, options: *breakfast_opts }
+  meal_breakfast_wed_izzy: { name: Breakfast Wed Izzy, options: *breakfast_opts }
+  meal_breakfast_thu_izzy: { name: Breakfast Thu Izzy, options: *breakfast_opts }
+  meal_breakfast_fri_izzy: { name: Breakfast Fri Izzy, options: *breakfast_opts }
+  meal_breakfast_sat_izzy: { name: Breakfast Sat Izzy, options: *breakfast_opts }
+  meal_breakfast_sun_izzy: { name: Breakfast Sun Izzy, options: *breakfast_opts }
+
+input_boolean:
+  # Night smoothie toggles (Michael/Lorna)
+  night_smoothie_mon_michael: { name: Night Smoothie Mon Michael }
+  night_smoothie_tue_michael: { name: Night Smoothie Tue Michael }
+  night_smoothie_wed_michael: { name: Night Smoothie Wed Michael }
+  night_smoothie_thu_michael: { name: Night Smoothie Thu Michael }
+  night_smoothie_fri_michael: { name: Night Smoothie Fri Michael }
+  night_smoothie_sat_michael: { name: Night Smoothie Sat Michael }
+  night_smoothie_sun_michael: { name: Night Smoothie Sun Michael }
+
+  night_smoothie_mon_lorna: { name: Night Smoothie Mon Lorna }
+  night_smoothie_tue_lorna: { name: Night Smoothie Tue Lorna }
+  night_smoothie_wed_lorna: { name: Night Smoothie Wed Lorna }
+  night_smoothie_thu_lorna: { name: Night Smoothie Thu Lorna }
+  night_smoothie_fri_lorna: { name: Night Smoothie Fri Lorna }
+  night_smoothie_sat_lorna: { name: Night Smoothie Sat Lorna }
+  night_smoothie_sun_lorna: { name: Night Smoothie Sun Lorna }
+
+  # Snacks + vitamins used by your dashboard tiles
+  snack_banana_michael: { name: Snack Banana Michael }
+  snack_banana_lorna: { name: Snack Banana Lorna }
+  snack_banana_izzy: { name: Snack Banana Izzy }
+
+  snack_apple_michael: { name: Snack Apple Michael }
+  snack_apple_lorna: { name: Snack Apple Lorna }
+  snack_apple_izzy: { name: Snack Apple Izzy }
+
+  snack_nuts_michael: { name: Snack Nuts Michael }
+  snack_nuts_lorna: { name: Snack Nuts Lorna }
+  snack_nuts_izzy: { name: Snack Nuts Izzy }
+
+  snack_green_tea_michael: { name: Green Tea Michael }
+  snack_green_tea_lorna: { name: Green Tea Lorna }
+  snack_green_tea_izzy: { name: Green Tea Izzy }
+
+  snack_orange_michael: { name: Snack Orange Michael }
+  snack_orange_lorna: { name: Snack Orange Lorna }
+  snack_orange_izzy: { name: Snack Orange Izzy }
+
+  snack_pear_michael: { name: Snack Pear Michael }
+  snack_pear_lorna: { name: Snack Pear Lorna }
+  snack_pear_izzy: { name: Snack Pear Izzy }
+
+  snack_yoghurt_michael: { name: Snack Yoghurt Michael }
+  snack_yoghurt_lorna: { name: Snack Yoghurt Lorna }
+  snack_yoghurt_izzy: { name: Snack Yoghurt Izzy }
+
+  snack_granola_michael: { name: Snack Granola Michael }
+  snack_granola_lorna: { name: Snack Granola Lorna }
+  snack_granola_izzy: { name: Snack Granola Izzy }
+
+  snack_crackers_michael: { name: Snack Crackers Michael }
+  snack_crackers_lorna: { name: Snack Crackers Lorna }
+  snack_crackers_izzy: { name: Snack Crackers Izzy }
+
+  snack_cheese_michael: { name: Snack Cheese Michael }
+  snack_cheese_lorna: { name: Snack Cheese Lorna }
+  snack_cheese_izzy: { name: Snack Cheese Izzy }
+
+  snack_coffee_michael: { name: Coffee Michael }
+  snack_coffee_lorna: { name: Coffee Lorna }
+  snack_coffee_izzy: { name: Coffee Izzy }
+
+  snack_bone_broth_michael: { name: Bone Broth Michael }
+  snack_bone_broth_lorna: { name: Bone Broth Lorna }
+  snack_bone_broth_izzy: { name: Bone Broth Izzy }
+
+  snack_crisps_michael: { name: Crisps Michael }
+  snack_crisps_lorna: { name: Crisps Lorna }
+  snack_crisps_izzy: { name: Crisps Izzy }
+
+  snack_nakd_bar_michael: { name: Nakd Bar Michael }
+  snack_nakd_bar_lorna: { name: Nakd Bar Lorna }
+  snack_nakd_bar_izzy: { name: Nakd Bar Izzy }
+
+  snack_protein_shake_michael: { name: Protein Shake Michael }
+  snack_protein_shake_lorna: { name: Protein Shake Lorna }
+  snack_protein_shake_izzy: { name: Protein Shake Izzy }
+
+  snack_protein_juice_michael: { name: Protein Juice Michael }
+  snack_protein_juice_lorna: { name: Protein Juice Lorna }
+  snack_protein_juice_izzy: { name: Protein Juice Izzy }
+
+  snack_oatcakes_michael: { name: Oatcakes Michael }
+  snack_oatcakes_lorna: { name: Oatcakes Lorna }
+  snack_oatcakes_izzy: { name: Oatcakes Izzy }
+
+  snack_dark_chocolate_michael: { name: Dark Chocolate Michael }
+  snack_dark_chocolate_lorna: { name: Dark Chocolate Lorna }
+  snack_dark_chocolate_izzy: { name: Dark Chocolate Izzy }
+
+  snack_cod_liver_oil_michael: { name: Cod Liver Oil Michael }
+  snack_cod_liver_oil_lorna: { name: Cod Liver Oil Lorna }
+  snack_cod_liver_oil_izzy: { name: Cod Liver Oil Izzy }
+
+  snack_magnesium_michael: { name: Magnesium Michael }
+  snack_magnesium_lorna: { name: Magnesium Lorna }
+  snack_magnesium_izzy: { name: Magnesium Izzy }
+
+  snack_multi_vitamin_michael: { name: Multi Vitamin Michael }
+  snack_multi_vitamin_lorna: { name: Multi Vitamin Lorna }
+  snack_multi_vitamin_izzy: { name: Multi Vitamin Izzy }
+
+  snack_vitamin_d_michael: { name: Vitamin D Michael }
+  snack_vitamin_d_lorna: { name: Vitamin D Lorna }
+  snack_vitamin_d_izzy: { name: Vitamin D Izzy }
+
+  snack_vitamin_c_michael: { name: Vitamin C Michael }
+  snack_vitamin_c_lorna: { name: Vitamin C Lorna }
+  snack_vitamin_c_izzy: { name: Vitamin C Izzy }
+
+  snack_zinc_michael: { name: Zinc Michael }
+  snack_zinc_lorna: { name: Zinc Lorna }
+  snack_zinc_izzy: { name: Zinc Izzy }
+
+  snack_electrolytes_michael: { name: Electrolytes Michael }
+  snack_electrolytes_lorna: { name: Electrolytes Lorna }
+  snack_electrolytes_izzy: { name: Electrolytes Izzy }

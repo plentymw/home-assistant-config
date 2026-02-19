@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Year Planner</title>
+
+<style>
+:root{
+  --bgTop:#f7f8fb;
+  --bgBot:#eef2f8;
+  --text:rgba(20,30,50,0.92);
+  --muted:rgba(20,30,50,0.55);
+  --danger:#d33a3a;
+
+  --tile:#ffffff;
+  --tile2:#fbfcff;
+
+  --line:rgba(20,30,50,0.10);
+  --line2:rgba(20,30,50,0.08);
+
+  --shadow: 0 10px 30px rgba(25,40,70,0.08);
+  --shadowSmall: 0 3px 10px rgba(25,40,70,0.10);
+
+  --radius:18px;
+}
+
+html,body{
+  height:100%;
+  margin:0;
+  background:linear-gradient(180deg,var(--bgTop),var(--bgBot));
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  color:var(--text);
+  overflow:hidden;
+}
+
+.wrap{
+  height:100%;
+  padding:10px 10px 8px 10px;
+  box-sizing:border-box;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.top{
+  flex:0 0 auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 12px;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  background:linear-gradient(90deg, rgba(255,209,220,0.55), rgba(182,240,246,0.55), rgba(215,242,178,0.55));
+  box-shadow: var(--shadowSmall);
+}
+
+.title{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:.2px;
+}
+
+.status{
+  font-size:12px;
+  color:rgba(20,30,50,0.62);
+}
+
+.controls{
+  display:flex;
+  gap:6px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+button,select{
+  background:rgba(255,255,255,0.90);
+  border:1px solid rgba(20,30,50,0.14);
+  color:var(--text);
+  padding:8px 10px;
+  border-radius:14px;
+  font-size:13px;
+  outline:none;
+  box-shadow: 0 2px 10px rgba(25,40,70,0.06);
+}
+
+button{cursor:pointer}
+button:hover,select:hover{border-color:rgba(20,30,50,0.22)}
+
+.poster{
+  flex:1 1 auto;
+  min-height:0;
+  overflow:hidden;
+}
+
+/* tighter again for more day width */
+.monthsRow{
+  height:100%;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:2px; /* was 3 */
+}
+
+.month{
+  display:flex;
+  flex-direction:column;
+  background:rgba(255,255,255,0.62);
+  border:1px solid rgba(20,30,50,0.10);
+  border-radius:16px;
+  padding:3px;
+  box-sizing:border-box;
+  min-height:0;
+  overflow:hidden;
+  box-shadow: 0 3px 14px rgba(25,40,70,0.06);
+}
+
+.monthHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-radius:12px;
+  padding:5px 6px;
+  margin-bottom:3px;
+  color:rgba(20,30,50,0.82);
+  font-weight:850;
+  font-size:12.5px;
+  letter-spacing:.2px;
+}
+.monthHead .yr{opacity:.7;font-weight:700}
+
+.daylist{
+  flex:1 1 auto;
+  min-height:0;
+  display:grid;
+  grid-template-rows:repeat(31,1fr);
+  gap:1px;
+}
+
+.dayrow{
+  position:relative;
+  border-radius:10px;
+  padding:3px 4px 4px 4px;
+  border:1px solid var(--line2);
+  background:var(--tile);
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.dayrow:nth-child(even){background:var(--tile2)}
+
+.dayrow:hover{
+  border-color:rgba(20,30,50,0.16);
+  box-shadow: 0 4px 14px rgba(25,40,70,0.08);
+}
+
+.dayrow.invalid{
+  opacity:0.25;
+  cursor:default;
+  border-style:dashed;
+  background:rgba(255,255,255,0.35);
+}
+
+.dayrow.today{
+  border-color: rgba(60,160,245,0.45);
+  box-shadow: 0 0 0 2px rgba(60,160,245,0.10);
+}
+
+.dayrow.weekend{
+  background: rgba(255,255,255,0.92);
+}
+
+/* moved badge to top-left */
+.dayhdr{
+  position:absolute;
+  top:3px;
+  left:6px;
+  display:flex;
+  gap:6px;
+  align-items:baseline;
+  justify-content:flex-start;
+  pointer-events:none;
+  background:rgba(255,255,255,0.75);
+  border:1px solid rgba(20,30,50,0.10);
+  padding:1px 6px;
+  border-radius:999px;
+}
+
+.daynum{
+  font-size:12.5px;
+  font-weight:900;
+  line-height:1;
+}
+
+.dow{
+  font-size:9.5px;
+  font-weight:800;
+  opacity:0.75;
+  line-height:1;
+}
+
+.events{
+  margin-top:18px;
+  display:flex;
+  gap:4px;
+  flex-wrap:wrap;
+  align-content:flex-start;
+  min-height:0;
+}
+
+.chip{
+  font-size:10.5px;
+  padding:2px 7px;
+  border-radius:999px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  border:1px solid rgba(20,30,50,0.12);
+  background:rgba(255,255,255,0.88);
+  max-width:100%;
+}
+
+.chip.more{
+  background:rgba(255,255,255,0.72);
+}
+
+/* Modal */
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(20,30,50,0.25);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  padding:12px;
+  z-index:999;
+}
+
+.modal{
+  width:min(760px, 96vw);
+  background:rgba(255,255,255,0.92);
+  border:1px solid rgba(20,30,50,0.14);
+  border-radius:22px;
+  padding:14px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.modalhead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.modalhead .h{
+  font-size:14px;
+  font-weight:900;
+}
+
+.modalhead button{
+  padding:7px 11px;
+  border-radius:14px;
+}
+
+.form{
+  display:grid;
+  gap:10px;
+  margin-top:12px;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  color:rgba(20,30,50,0.65);
+  margin-bottom:6px;
+  font-weight:700;
+}
+
+input, textarea, .modal select{
+  width:100%;
+  box-sizing:border-box;
+  padding:10px;
+  border-radius:14px;
+  border:1px solid rgba(20,30,50,0.14);
+  background:rgba(255,255,255,0.95);
+  color:var(--text);
+  font-size:13px;
+  outline:none;
+}
+
+textarea{min-height:90px; resize:vertical}
+
+.row{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px;
+}
+
+.row3{
+  display:grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr;
+  gap:10px;
+  align-items:end;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+}
+
+.primary{
+  border-color: rgba(60,160,245,0.40);
+  background: rgba(60,160,245,0.12);
+  font-weight:800;
+}
+
+.hint{
+  font-size:12px;
+  color:rgba(20,30,50,0.62);
+}
+
+.hint.danger{
+  color:var(--danger);
+}
+
+@media (max-width: 620px){
+  .row, .row3{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="title">Year Planner</div>
+      <div id="status" class="status">Loading…</div>
+    </div>
+    <div class="controls">
+      <button id="prev" type="button">◀</button>
+      <select id="yearSelect"></select>
+      <button id="next" type="button">▶</button>
+      <select id="calSelect" title="Which calendar(s) to show"></select>
+      <button id="refresh" type="button">Refresh</button>
+    </div>
+  </div>
+
+  <div class="poster">
+    <div id="monthsRow" class="monthsRow"></div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modalBackdrop" class="modal-backdrop">
+  <div class="modal">
+    <div class="modalhead">
+      <div class="h" id="modalTitle">Add event</div>
+      <button id="closeModal" type="button">Close</button>
+    </div>
+
+    <div class="form">
+      <div>
+        <label>Title</label>
+        <input id="evtTitle" placeholder="e.g. Dentist, school, work trip — start with [L] for Lorna, [M] for Michael" />
+      </div>
+
+      <div class="row3">
+        <div>
+          <label>Create in</label>
+          <select id="createCal"></select>
+        </div>
+        <div>
+          <label>All-day</label>
+          <select id="allDay">
+            <option value="no" selected>No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </div>
+        <div>
+          <label>&nbsp;</label>
+          <button id="openInHA" type="button">Open day in HA</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Start</label>
+          <input id="evtStart" type="datetime-local" />
+        </div>
+        <div>
+          <label>End</label>
+          <input id="evtEnd" type="datetime-local" />
+        </div>
+      </div>
+
+      <div>
+        <label>Description</label>
+        <textarea id="evtDesc"></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="createEvt" type="button">Create event</button>
+      </div>
+
+      <div id="modalHint" class="hint"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const LONG_LIVED_TOKEN = ""; // optional fallback
+  const DEFAULT_CALENDAR = "calendar.miclorn_gmail_com";
+  const ALL_ID = "__ALL__";
+
+  let currentYear = new Date().getFullYear();
+  let selectedCalendar = DEFAULT_CALENDAR;
+  let calendars = [];
+  let clickedDayISO = null;
+
+  const monthsRowEl = document.getElementById("monthsRow");
+  const statusEl = document.getElementById("status");
+  const yearSelect = document.getElementById("yearSelect");
+  const calSelect = document.getElementById("calSelect");
+
+  const modalBackdrop = document.getElementById("modalBackdrop");
+  const modalTitle = document.getElementById("modalTitle");
+  const closeModalBtn = document.getElementById("closeModal");
+  const openInHABtn = document.getElementById("openInHA");
+  const createEvtBtn = document.getElementById("createEvt");
+  const modalHint = document.getElementById("modalHint");
+
+  const createCalSel = document.getElementById("createCal");
+  const allDaySel = document.getElementById("allDay");
+  const evtTitle = document.getElementById("evtTitle");
+  const evtStart = document.getElementById("evtStart");
+  const evtEnd = document.getElementById("evtEnd");
+  const evtDesc = document.getElementById("evtDesc");
+
+  const MONTH_COLOURS = [
+    "#f7b2b2", "#ffd2a8", "#ffe6a6", "#d7f2b2",
+    "#b9f1d6", "#b6f0f6", "#bcd8ff", "#cbbcff",
+    "#f0b8ff", "#ffb9cf", "#cfd6df", "#ffd1dc"
+  ];
+
+  function pad(n){ return String(n).padStart(2,"0"); }
+  function isoDate(y,m,d){ return `${y}-${pad(m)}-${pad(d)}`; }
+
+  function setStatus(msg, isError=false){
+    statusEl.textContent = msg;
+    statusEl.style.color = isError ? "var(--danger)" : "rgba(20,30,50,0.62)";
+  }
+
+  function getUiToken(){
+    try{
+      const raw = localStorage.getItem("hassTokens");
+      if(!raw) return null;
+      const tok = JSON.parse(raw)?.access_token;
+      return typeof tok === "string" && tok.length > 20 ? tok : null;
+    }catch{
+      return null;
+    }
+  }
+
+  async function fetchWithTimeout(url, opts={}, timeoutMs=15000){
+    const ctrl = new AbortController();
+    const t = setTimeout(()=>ctrl.abort(), timeoutMs);
+    try{
+      return await fetch(url, { ...opts, signal: ctrl.signal });
+    } finally {
+      clearTimeout(t);
+    }
+  }
+
+  async function haRequest(path, opts={}){
+    let r = await fetchWithTimeout(path, { ...opts });
+    if (r.status !== 401 && r.status !== 403) return r;
+
+    const uiToken = getUiToken();
+    if (uiToken){
+      const headers = { ...(opts.headers || {}), "Authorization": `Bearer ${uiToken}` };
+      r = await fetchWithTimeout(path, { ...opts, headers });
+      if (r.status !== 401 && r.status !== 403) return r;
+    }
+
+    if (LONG_LIVED_TOKEN){
+      const headers = { ...(opts.headers || {}), "Authorization": `Bearer ${LONG_LIVED_TOKEN}` };
+      return await fetchWithTimeout(path, { ...opts, headers });
+    }
+    return r;
+  }
+
+  async function haJson(path){
+    const r = await haRequest(path);
+    if (!r.ok){
+      const txt = await r.text().catch(()=> "");
+      throw new Error(`${r.status} ${r.statusText} :: ${txt.slice(0,200)}`);
+    }
+    return r.json();
+  }
+
+  async function haCallService(domain, service, body){
+    const r = await haRequest(`/api/services/${domain}/${service}`, {
+      method: "POST",
+      headers: { "Content-Type":"application/json" },
+      body: JSON.stringify(body)
+    });
+    if (!r.ok){
+      const txt = await r.text().catch(()=> "");
+      throw new Error(`${r.status} ${r.statusText} :: ${txt.slice(0,200)}`);
+    }
+    return r.json().catch(()=> ({}));
+  }
+
+  async function listCalendars(){
+    const states = await haJson("/api/states");
+    calendars = states
+      .filter(s => s.entity_id && s.entity_id.startsWith("calendar."))
+      .map(s => ({ id: s.entity_id, name: (s.attributes && (s.attributes.friendly_name || s.attributes.name)) || s.entity_id }))
+      .sort((a,b)=>a.name.localeCompare(b.name));
+
+    calSelect.innerHTML = "";
+    calSelect.append(new Option("All calendars (slower)", ALL_ID));
+
+    const pins = [];
+    const rest = [];
+    for (const c of calendars){
+      const n = (c.name || c.id).toLowerCase();
+      if (n.includes("miclorn") || n.includes("family") || n.includes("birthday")) pins.push(c);
+      else rest.push(c);
+    }
+    for (const c of [...pins, ...rest]){
+      calSelect.append(new Option(c.name, c.id));
+    }
+
+    createCalSel.innerHTML = "";
+    for (const c of [...pins, ...rest]){
+      createCalSel.append(new Option(c.name, c.id));
+    }
+
+    const hasDefault = calendars.some(c => c.id === DEFAULT_CALENDAR);
+    selectedCalendar = hasDefault ? DEFAULT_CALENDAR : (calendars[0]?.id || DEFAULT_CALENDAR);
+    calSelect.value = selectedCalendar;
+    createCalSel.value = hasDefault ? DEFAULT_CALENDAR : (calendars[0]?.id || DEFAULT_CALENDAR);
+  }
+
+  async function getEventsForEntityYear(entityId, year){
+    const start = new Date(Date.UTC(year,0,1,0,0,0)).toISOString();
+    const end   = new Date(Date.UTC(year+1,0,1,0,0,0)).toISOString();
+    const url = `/api/calendars/${encodeURIComponent(entityId)}?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`;
+    const evs = await haJson(url);
+    return evs.map(e => ({ ...e, __calendar_id: entityId }));
+  }
+
+  async function getEventsForSelection(year, selection){
+    if (selection === ALL_ID){
+      const total = calendars.length;
+      let done = 0;
+      setStatus(`Loading all calendars… 0/${total}`);
+
+      const tasks = calendars.map(c =>
+        getEventsForEntityYear(c.id, year)
+          .catch(()=>[])
+          .finally(()=>{
+            done += 1;
+            setStatus(`Loading all calendars… ${done}/${total}`);
+          })
+      );
+
+      const chunks = await Promise.all(tasks);
+      return chunks.flat();
+    }
+
+    setStatus("Loading…");
+    return getEventsForEntityYear(selection, year);
+  }
+
+  function monthShort(i){
+    return new Date(2000, i, 1).toLocaleString("en-GB", { month: "short" });
+  }
+
+  function dowShort(iso){
+    return new Date(iso + "T12:00:00").toLocaleString("en-GB", { weekday: "short" });
+  }
+
+  function isWeekend(iso){
+    const d = new Date(iso + "T12:00:00");
+    const day = d.getDay(); // Sun=0
+    return day === 0 || day === 6;
+  }
+
+  function normaliseStart(e){
+    if (typeof e.start === "string") return e.start;
+    return e.start?.dateTime || e.start?.date || "";
+  }
+
+  function render(year, events){
+    const map = new Map();
+    for (const e of events){
+      const start = normaliseStart(e);
+      const key = start ? start.slice(0,10) : "";
+      if (!key) continue;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(e.summary || "(no title)");
+    }
+
+    const today = new Date();
+    const todayKey = isoDate(today.getFullYear(), today.getMonth()+1, today.getDate());
+
+    monthsRowEl.innerHTML = "";
+
+    for (let m=0; m<12; m++){
+      const dim = new Date(year, m+1, 0).getDate();
+      const pastel = MONTH_COLOURS[m];
+
+      const month = document.createElement("div");
+      month.className = "month";
+
+      const head = document.createElement("div");
+      head.className = "monthHead";
+      head.style.background = pastel;
+      head.innerHTML = `<span>${monthShort(m)}</span><span class="yr">${year}</span>`;
+      month.appendChild(head);
+
+      const list = document.createElement("div");
+      list.className = "daylist";
+
+      for (let d=1; d<=31; d++){
+        const valid = d <= dim;
+        const key = valid ? isoDate(year, m+1, d) : null;
+
+        const row = document.createElement("div");
+        row.className = "dayrow" + (!valid ? " invalid" : "") + (key === todayKey ? " today" : "");
+
+        if (valid && isWeekend(key)){
+          row.classList.add("weekend");
+          row.style.background = `linear-gradient(180deg, rgba(255,255,255,0.92), ${pastel}33)`;
+        }
+
+        if (valid){
+          const badge = document.createElement("div");
+          badge.className = "dayhdr";
+          badge.innerHTML = `<span class="daynum">${d}</span><span class="dow">${dowShort(key)}</span>`;
+          row.appendChild(badge);
+
+          const evBox = document.createElement("div");
+          evBox.className = "events";
+
+          const titles = map.get(key) || [];
+          const maxShow = 3;
+          for (const t of titles.slice(0, maxShow)){
+            const chip = document.createElement("div");
+            chip.className = "chip";
+            chip.textContent = t;
+            evBox.appendChild(chip);
+          }
+          if (titles.length > maxShow){
+            const more = document.createElement("div");
+            more.className = "chip more";
+            more.textContent = `+${titles.length - maxShow}`;
+            evBox.appendChild(more);
+          }
+
+          row.appendChild(evBox);
+          row.addEventListener("click", ()=> openModalForDay(key));
+        }
+
+        list.appendChild(row);
+      }
+
+      month.appendChild(list);
+      monthsRowEl.appendChild(month);
+    }
+  }
+
+  async function load(){
+    try{
+      const events = await getEventsForSelection(currentYear, selectedCalendar);
+      render(currentYear, events);
+      setStatus(`Loaded ${events.length} events`);
+    }catch(e){
+      setStatus(`Error: ${e.message}`, true);
+    }
+  }
+
+  function toLocalInputValue(date){
+    const d = new Date(date);
+    const y = d.getFullYear();
+    const m = pad(d.getMonth()+1);
+    const da = pad(d.getDate());
+    const hh = pad(d.getHours());
+    const mm = pad(d.getMinutes());
+    return `${y}-${m}-${da}T${hh}:${mm}`;
+  }
+
+  function openModalForDay(dayISO){
+    clickedDayISO = dayISO;
+    modalTitle.textContent = `Add event: ${dayISO}`;
+    evtTitle.value = "";
+    evtDesc.value = "";
+    modalHint.textContent = "";
+    modalHint.className = "hint";
+
+    if (selectedCalendar !== ALL_ID){
+      createCalSel.value = selectedCalendar;
+    }
+
+    allDaySel.value = "no";
+    const start = new Date(dayISO + "T09:00:00");
+    const end = new Date(dayISO + "T10:00:00");
+    evtStart.type = "datetime-local";
+    evtEnd.type = "datetime-local";
+    evtStart.value = toLocalInputValue(start);
+    evtEnd.value = toLocalInputValue(end);
+
+    modalBackdrop.style.display = "flex";
+    evtTitle.focus();
+  }
+
+  function closeModal(){
+    modalBackdrop.style.display = "none";
+  }
+
+  function updateAllDayUI(){
+    if (!clickedDayISO) return;
+    const isAllDay = allDaySel.value === "yes";
+
+    evtStart.type = isAllDay ? "date" : "datetime-local";
+    evtEnd.type = isAllDay ? "date" : "datetime-local";
+
+    if (isAllDay){
+      evtStart.value = clickedDayISO;
+      const next = new Date(clickedDayISO + "T00:00:00");
+      next.setDate(next.getDate() + 1);
+      evtEnd.value = isoDate(next.getFullYear(), next.getMonth()+1, next.getDate());
+    } else {
+      const start = new Date(clickedDayISO + "T09:00:00");
+      const end = new Date(clickedDayISO + "T10:00:00");
+      evtStart.value = toLocalInputValue(start);
+      evtEnd.value = toLocalInputValue(end);
+    }
+  }
+
+  async function createEvent(){
+    if (!clickedDayISO) return;
+
+    const summary = evtTitle.value.trim();
+    if (!summary){
+      modalHint.textContent = "Give it a title first.";
+      modalHint.className = "hint danger";
+      return;
+    }
+
+    const entityId = createCalSel.value;
+    const isAllDay = allDaySel.value === "yes";
+
+    const body = { entity_id: entityId, summary, description: evtDesc.value || "" };
+
+    try{
+      modalHint.textContent = "Creating…";
+      modalHint.className = "hint";
+
+      if (isAllDay){
+        body.start_date = evtStart.value;
+        body.end_date = evtEnd.value;
+      } else {
+        const startISO = new Date(evtStart.value).toISOString();
+        const endISO = new Date(evtEnd.value).toISOString();
+        if (new Date(endISO) <= new Date(startISO)){
+          modalHint.textContent = "End must be after start.";
+          modalHint.className = "hint danger";
+          return;
+        }
+        body.start_date_time = startISO;
+        body.end_date_time = endISO;
+      }
+
+      await haCallService("calendar", "create_event", body);
+
+      closeModal();
+      await load();
+    }catch(e){
+      modalHint.textContent = `Create failed: ${e.message}`;
+      modalHint.className = "hint danger";
+    }
+  }
+
+  function openDayInHA(){
+    if (!clickedDayISO) return;
+    window.location.href = `/calendar?date=${clickedDayISO}`;
+  }
+
+  (function(){
+    yearSelect.innerHTML = "";
+    const base = new Date().getFullYear();
+    for (let y=base-2; y<=base+3; y++){
+      yearSelect.append(new Option(String(y), String(y)));
+    }
+    yearSelect.value = String(currentYear);
+  })();
+
+  document.getElementById("prev").onclick = ()=>{ currentYear--; yearSelect.value = String(currentYear); load(); };
+  document.getElementById("next").onclick = ()=>{ currentYear++; yearSelect.value = String(currentYear); load(); };
+  document.getElementById("refresh").onclick = load;
+
+  yearSelect.onchange = ()=>{ currentYear = parseInt(yearSelect.value, 10); load(); };
+  calSelect.onchange = ()=>{ selectedCalendar = calSelect.value; load(); };
+
+  closeModalBtn.addEventListener("click", closeModal);
+  modalBackdrop.addEventListener("click", (e)=>{ if (e.target === modalBackdrop) closeModal(); });
+  allDaySel.addEventListener("change", updateAllDayUI);
+  createEvtBtn.addEventListener("click", createEvent);
+  openInHABtn.addEventListener("click", openDayInHA);
+
+  document.addEventListener("keydown", (e)=>{
+    if (e.key === "Escape" && modalBackdrop.style.display === "flex") closeModal();
+    if (e.key === "Enter" && modalBackdrop.style.display === "flex" && document.activeElement === evtTitle){
+      createEvent();
+    }
+  });
+
+  (async function init(){
+    try{
+      setStatus("Detecting calendars…");
+      await listCalendars();
+      await load();
+    }catch(e){
+      setStatus(`Init error: ${e.message}`, true);
+    }
+  })();
+</script>
+</body>
+</html>

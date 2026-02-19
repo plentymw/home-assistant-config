@@ -1,0 +1,14 @@
+home-assistant.log*
+*.log
+*.db
+*.db-shm
+*.db-wal
+
+.storage/
+
+backups/
+tmp/
+tts/
+
+__pycache__/
+*.pyc

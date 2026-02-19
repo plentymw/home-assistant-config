@@ -1,0 +1,32 @@
+- name: Flagged Emails
+  show_completed: false
+  todo_list_id: AQMkADAwATM0MDAAMS0xMDg3LTdjYwEtMDACLTAwCgAuAAAD3BaG13u-vwBNjIg1EqTX-4gBABm3-308JO9CqjeeqNxVe_wABCWpqQAdAAAA
+  track: true
+- name: Tasks
+  show_completed: false
+  todo_list_id: AQMkADAwATM0MDAAMS0xMDg3LTdjYwEtMDACLTAwCgAuAAAD3BaG13u-vwBNjIg1EqTX-4gBABm3-308JO9CqjeeqNxVe_wAAAIBEgAAAA==
+  track: true
+- name: Assigned - Lorna
+  show_completed: false
+  todo_list_id: AQMkADAwATM0MDAAMS0xMDg3LTdjYwEtMDACLTAwCgAuAAAD3BaG13u-vwBNjIg1EqTX-4gBABm3-308JO9CqjeeqNxVe_wABwcAngqgAAAA
+  track: true
+- name: Assigned - Michael
+  show_completed: false
+  todo_list_id: AQMkADAwATM0MDAAMS0xMDg3LTdjYwEtMDACLTAwCgAuAAAD3BaG13u-vwBNjIg1EqTX-4gBABm3-308JO9CqjeeqNxVe_wABwcAngqfAAAA
+  track: true
+- name: Books
+  show_completed: false
+  todo_list_id: AQMkADAwATM0MDAAMS0xMDg3LTdjYwEtMDACLTAwCgAuAAAD3BaG13u-vwBNjIg1EqTX-4gBABm3-308JO9CqjeeqNxVe_wABv6u760AAAA=
+  track: true
+- name: Household
+  show_completed: false
+  todo_list_id: AQMkADAwATM0MDAAMS0xMDg3LTdjYwEtMDACLTAwCgAuAAAD3BaG13u-vwBNjIg1EqTX-4gBABm3-308JO9CqjeeqNxVe_wABwXBwroAAAA=
+  track: true
+- name: Shopping
+  show_completed: false
+  todo_list_id: AQMkADAwATM0MDAAMS0xMDg3LTdjYwEtMDACLTAwCgAuAAAD3BaG13u-vwBNjIg1EqTX-4gBABm3-308JO9CqjeeqNxVe_wABwXBwrkAAAA=
+  track: true
+- name: Calendar
+  show_completed: false
+  todo_list_id: AQMkADAwATM0MDAAMS0xMDg3LTdjYwEtMDACLTAwCgAuAAAD3BaG13u-vwBNjIg1EqTX-4gBABm3-308JO9CqjeeqNxVe_wABw7h9UoAAAA=
+  track: true

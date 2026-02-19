@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.year_planner",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "type": "panel",
+          "sections": [],
+          "cards": [
+            {
+              "type": "iframe",
+              "url": "/local/year.html",
+              "aspect_ratio": "75%"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
