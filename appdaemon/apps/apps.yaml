@@ -1,0 +1,20 @@
+---
+meal_planner:
+  module: meal_planner
+  class: MealPlanner
+
+  # Notion auth (store this in HA secrets.yaml, see next section)
+  notion_token: !secret notion_food_plan_token
+
+  # Notion database IDs (from your screenshots)
+  db_plan: e9a7c1711f014c6d8917383ed36da3eb
+  db_ingredients: 1750a28b495a46ecace4b541694c40f5
+  db_meals: 1ecaa5ced5ab433999424578eb0c7b6b
+  db_mealportions: f867d048b3314b78aa876624b29f8cd0
+  db_sauce_recipes: f4f7e9a6a6e74977b0e5f83eb8e5a756
+  db_sauce_batches: 0167a1c9eeed48499f526b5b4e41070e
+  db_snackitems: fec7b3c7343d4ce1ac8558167b47cec8
+  db_snacklog: 11478eaabd3f43e0b56227b9e1844ac4
+
+  # Optional but recommended
+  sync_interval_seconds: 60

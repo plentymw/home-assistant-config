@@ -1,0 +1,20 @@
+---
+appdaemon:
+  latitude: 52.379189
+  longitude: 4.899431
+  elevation: 2
+  time_zone: Europe/London
+  plugins:
+    HASS:
+      type: hass
+      token: !env_var SUPERVISOR_TOKEN
+
+apps:
+  app_dir: /config/apps
+
+http:
+  url: http://0.0.0.0:5050
+
+admin:
+api:
+hadashboard:
