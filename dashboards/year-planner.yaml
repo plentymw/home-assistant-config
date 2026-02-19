@@ -1,0 +1,8 @@
+title: Year Planner
+views:
+  - title: Year Planner
+    path: default_view
+    cards:
+      - type: markdown
+        content: |
+          # Year Calendar Test
