@@ -1,0 +1,20 @@
+﻿name: Meal Planner API
+slug: meal_planner_api
+description: FastAPI backend for the Home Assistant Meal Planner
+version: "1.0.0"
+arch:
+  - amd64
+startup: services
+init: false
+
+ingress: true
+ingress_port: 8000
+
+map:
+  - data:rw
+  - homeassistant_config:rw
+
+options: {}
+schema: {}
+
+log_level: info
