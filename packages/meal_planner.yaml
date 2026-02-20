@@ -1,0 +1,107 @@
+rest:
+  - resource: /api/hassio_ingress/EjiYrpfGiBJ9tLW2DCkO-huymtri_d-Kszjlcb4dEdc/proxy/8000/week-totals
+    method: GET
+    scan_interval: 60
+    timeout: 30
+    sensor:
+      - name: Meal Planner Week Raw
+        unique_id: meal_planner_week_raw
+        value_template: "ok"
+        json_attributes:
+          - today_cost
+          - today_totals
+          - week_cost
+          - week_totals
+          - wed_shopping
+          - sun_shopping
+          - week_start
+          - last_updated
+
+template:
+  - sensor:
+      # Simple headline numbers
+      - name: Meal Planner Week Cost
+        unique_id: meal_planner_week_cost
+        unit_of_measurement: "£"
+        state: "{{ state_attr('sensor.meal_planner_week_raw', 'week_cost') | default(0) }}"
+
+      - name: Meal Planner Today Cost
+        unique_id: meal_planner_today_cost
+        unit_of_measurement: "£"
+        state: "{{ state_attr('sensor.meal_planner_week_raw', 'today_cost') | default(0) }}"
+
+      - name: Meal Planner Week Start
+        unique_id: meal_planner_week_start
+        state: "{{ state_attr('sensor.meal_planner_week_raw', 'week_start') | default('') }}"
+
+      - name: Meal Planner Last Updated
+        unique_id: meal_planner_last_updated
+        state: "{{ state_attr('sensor.meal_planner_week_raw', 'last_updated') | default('') }}"
+
+      # Per-person today totals (kcal/protein/carbs/fat)
+      - name: Meal Planner Today Totals
+        unique_id: meal_planner_today_totals
+        state: >
+          {{ (state_attr('sensor.meal_planner_week_raw', 'today_totals') | default([])) | length }}
+        attributes:
+          totals: "{{ state_attr('sensor.meal_planner_week_raw', 'today_totals') | default([]) }}"
+
+      # Per-person week totals (kcal/protein/carbs/fat)
+      - name: Meal Planner Week Totals
+        unique_id: meal_planner_week_totals
+        state: >
+          {{ (state_attr('sensor.meal_planner_week_raw', 'week_totals') | default([])) | length }}
+        attributes:
+          totals: "{{ state_attr('sensor.meal_planner_week_raw', 'week_totals') | default([]) }}"
+
+      # Shopping list helpers (count + readable text)
+      - name: Meal Planner Wed Shopping Count
+        unique_id: meal_planner_wed_shopping_count
+        state: "{{ (state_attr('sensor.meal_planner_week_raw', 'wed_shopping') | default([])) | length }}"
+
+      - name: Meal Planner Sun Shopping Count
+        unique_id: meal_planner_sun_shopping_count
+        state: "{{ (state_attr('sensor.meal_planner_week_raw', 'sun_shopping') | default([])) | length }}"
+
+      - name: Meal Planner Wed Shopping Text
+        unique_id: meal_planner_wed_shopping_text
+        state: "ok"
+        attributes:
+          lines: >
+            {% set items = state_attr('sensor.meal_planner_week_raw','wed_shopping') | default([]) %}
+            {{ items | map(attribute='ingredient') | list }}
+          text: >
+            {% set items = state_attr('sensor.meal_planner_week_raw','wed_shopping') | default([]) %}
+            {% for i in items %}
+            - {{ i.ingredient }}: {{ i.quantity }} {{ i.unit }} (£{{ i.cost }})
+            {% endfor %}
+
+      - name: Meal Planner Sun Shopping Text
+        unique_id: meal_planner_sun_shopping_text
+        state: "ok"
+        attributes:
+          lines: >
+            {% set items = state_attr('sensor.meal_planner_week_raw','sun_shopping') | default([]) %}
+            {{ items | map(attribute='ingredient') | list }}
+          text: >
+            {% set items = state_attr('sensor.meal_planner_week_raw','sun_shopping') | default([]) %}
+            {% for i in items %}
+            - {{ i.ingredient }}: {{ i.quantity }} {{ i.unit }} (£{{ i.cost }})
+            {% endfor %}
+
+rest_command:
+  meal_planner_bulk_update_week_plan:
+    url: /api/hassio_ingress/EjiYrpfGiBJ9tLW2DCkO-huymtri_d-Kszjlcb4dEdc/proxy/8000/week-plan/bulk-update
+    method: POST
+    headers:
+      content-type: application/json
+      accept: application/json
+    payload: "{{ payload }}"
+
+  meal_planner_bulk_update_snacks:
+    url: /api/hassio_ingress/EjiYrpfGiBJ9tLW2DCkO-huymtri_d-Kszjlcb4dEdc/proxy/8000/snack-log/bulk-update
+    method: POST
+    headers:
+      content-type: application/json
+      accept: application/json
+    payload: "{{ payload }}"
