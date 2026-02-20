@@ -16,11 +16,13 @@ import calculations
 # Initialize database
 database.init_db()
 
-# Create FastAPI app
+# Create FastAPI app (Ingress-aware)
 app = FastAPI(
     title="Meal Planner API",
     description="Backend for Home Assistant meal planning system",
-    version="1.0.0"
+    version="1.0.0",
+    # Fix Swagger UI behind Home Assistant Ingress
+    root_path="/api/hassio_ingress/EjiYrpfGiBJ9tLW2DCkO-huymtri_d-Kszjlcb4dEdc/proxy/8000",
 )
 
 # Enable CORS (so HA can access from different origin)
@@ -31,7 +33,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 # ============================================================================
 # MAIN ENDPOINT (What HA Reads)
@@ -117,11 +118,11 @@ def update_ingredient(
     db_ingredient = db.query(database.Ingredient).filter(database.Ingredient.id == ingredient_id).first()
     if not db_ingredient:
         raise HTTPException(status_code=404, detail="Ingredient not found")
-    
+
     # Update only provided fields
     for key, value in ingredient.dict(exclude_unset=True).items():
         setattr(db_ingredient, key, value)
-    
+
     db.commit()
     db.refresh(db_ingredient)
     return db_ingredient
@@ -133,7 +134,7 @@ def delete_ingredient(ingredient_id: int, db: Session = Depends(database.get_db)
     db_ingredient = db.query(database.Ingredient).filter(database.Ingredient.id == ingredient_id).first()
     if not db_ingredient:
         raise HTTPException(status_code=404, detail="Ingredient not found")
-    
+
     db.delete(db_ingredient)
     db.commit()
     return {"message": "Ingredient deleted"}
@@ -168,7 +169,7 @@ def create_recipe(recipe: models.RecipeCreate, db: Session = Depends(database.ge
     db.add(db_recipe)
     db.commit()
     db.refresh(db_recipe)
-    
+
     # Add portions
     for portion in recipe.portions:
         db_portion = database.RecipePortion(
@@ -178,7 +179,7 @@ def create_recipe(recipe: models.RecipeCreate, db: Session = Depends(database.ge
             quantity=portion.quantity
         )
         db.add(db_portion)
-    
+
     db.commit()
     db.refresh(db_recipe)
     return db_recipe
@@ -190,7 +191,7 @@ def delete_recipe(recipe_id: int, db: Session = Depends(database.get_db)):
     db_recipe = db.query(database.Recipe).filter(database.Recipe.id == recipe_id).first()
     if not db_recipe:
         raise HTTPException(status_code=404, detail="Recipe not found")
-    
+
     db.delete(db_recipe)
     db.commit()
     return {"message": "Recipe deleted"}
@@ -205,14 +206,14 @@ def get_week_plan(week_start: date = None, db: Session = Depends(database.get_db
     """Get current week's meal plan"""
     if week_start is None:
         week_start = calculations.get_week_start()
-    
+
     week_end = week_start + timedelta(days=6)
-    
+
     plans = db.query(database.WeekPlan).filter(
         database.WeekPlan.date >= week_start,
         database.WeekPlan.date <= week_end
     ).all()
-    
+
     return plans
 
 
@@ -225,46 +226,44 @@ def bulk_update_week_plan(update: models.BulkMealUpdate, db: Session = Depends(d
     # Map person names to IDs
     people = db.query(database.Person).all()
     person_map = {p.name.lower(): p.id for p in people}
-    
+
     # Map recipe names to IDs
     recipes = db.query(database.Recipe).all()
     recipe_map = {r.name.lower(): r.id for r in recipes}
-    
+
     # Day name to offset
     day_offsets = {"mon": 0, "tue": 1, "wed": 2, "thu": 3, "fri": 4, "sat": 5, "sun": 6}
-    
+
     updated_count = 0
-    
+
     for meal in update.meals:
         # Calculate date
         day_offset = day_offsets.get(meal.day.lower())
         if day_offset is None:
             continue
-        
+
         meal_date = update.week_start + timedelta(days=day_offset)
-        
+
         # Get person ID
         person_id = person_map.get(meal.person.lower())
         if not person_id:
             continue
-        
+
         # Get recipe ID (None if blank/"—")
         recipe_id = None
         if meal.recipe_name and meal.recipe_name != "—":
             recipe_id = recipe_map.get(meal.recipe_name.lower())
-        
+
         # Find or create week plan entry
         plan = db.query(database.WeekPlan).filter(
             database.WeekPlan.date == meal_date,
             database.WeekPlan.person_id == person_id,
             database.WeekPlan.meal_type == meal.meal_type.lower()
         ).first()
-        
+
         if plan:
-            # Update existing
             plan.recipe_id = recipe_id
         else:
-            # Create new
             plan = database.WeekPlan(
                 date=meal_date,
                 person_id=person_id,
@@ -272,11 +271,11 @@ def bulk_update_week_plan(update: models.BulkMealUpdate, db: Session = Depends(d
                 recipe_id=recipe_id
             )
             db.add(plan)
-        
+
         updated_count += 1
-    
+
     db.commit()
-    
+
     return {"message": f"Updated {updated_count} meal selections"}
 
 
@@ -309,26 +308,26 @@ def bulk_update_snack_log(update: models.BulkSnackUpdate, db: Session = Depends(
     # Map names to IDs
     people = db.query(database.Person).all()
     person_map = {p.name.lower(): p.id for p in people}
-    
+
     snacks = db.query(database.Snack).all()
     snack_map = {s.name.lower(): s.id for s in snacks}
-    
+
     updated_count = 0
-    
+
     for snack_sel in update.snacks:
         person_id = person_map.get(snack_sel.person.lower())
         snack_id = snack_map.get(snack_sel.snack_name.lower())
-        
+
         if not person_id or not snack_id:
             continue
-        
+
         # Find or create snack log entry
         log = db.query(database.SnackLog).filter(
             database.SnackLog.date == snack_sel.date,
             database.SnackLog.person_id == person_id,
             database.SnackLog.snack_id == snack_id
         ).first()
-        
+
         if log:
             log.consumed = snack_sel.consumed
         else:
@@ -339,11 +338,11 @@ def bulk_update_snack_log(update: models.BulkSnackUpdate, db: Session = Depends(
                 consumed=snack_sel.consumed
             )
             db.add(log)
-        
+
         updated_count += 1
-    
+
     db.commit()
-    
+
     return {"message": f"Updated {updated_count} snack log entries"}
 
 
