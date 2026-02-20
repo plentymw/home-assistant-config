@@ -1,6 +1,7 @@
 title: Kitchen Calendar
 views:
-  - title: Screen 1
+  - type: panel
+    title: Screen 1
     path: screen-1
     icon: mdi:home
     cards:
