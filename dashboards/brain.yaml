@@ -1,0 +1,118 @@
+title: Brain
+views:
+  - title: Database Manager
+    path: brain-main
+    icon: mdi:database-cog
+    type: panel
+    cards:
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              height: 100vh;
+              width: 100%;
+              padding: 18px;
+              box-sizing: border-box;
+              background: radial-gradient(1200px 700px at 50% 0%, rgba(210,235,255,0.60), rgba(255,255,255,0.95));
+              border-radius: 0;
+              box-shadow: none;
+              overflow: auto;
+            }
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:mushroom-title-card
+              title: Brain — Database Manager
+              subtitle: Add ingredients, recipes and snacks
+              card_mod:
+                style: >
+                  ha-card { background: transparent; box-shadow: none; padding: 0 2px 8px; }
+
+            - type: grid
+              columns: 2
+              square: false
+              cards:
+
+                # ── Add Ingredient ──────────────────────────────────────────
+                - type: custom:mod-card
+                  card_mod:
+                    style: |
+                      ha-card {
+                        border-radius: 18px;
+                        background: rgba(232,241,255,0.80);
+                        box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+                        padding: 4px;
+                      }
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:mushroom-title-card
+                        title: Add Ingredient
+                        card_mod:
+                          style: >
+                            ha-card { background: transparent; box-shadow: none; padding: 4px 8px 0; }
+                      - type: entities
+                        entities:
+                          - entity: input_text.brain_ingredient_name
+                            name: Name
+                          - entity: input_text.brain_ingredient_unit
+                            name: Unit
+                          - entity: input_text.brain_ingredient_cost_per_unit
+                            name: Cost per unit (£)
+                          - entity: input_text.brain_ingredient_kcal
+                            name: Kcal per unit
+                          - entity: input_text.brain_ingredient_protein
+                            name: Protein (g)
+                          - entity: input_text.brain_ingredient_carbs
+                            name: Carbs (g)
+                          - entity: input_text.brain_ingredient_fat
+                            name: Fat (g)
+                          - entity: input_text.brain_ingredient_pack_size
+                            name: Pack size
+                          - entity: input_text.brain_ingredient_pack_cost
+                            name: Pack cost (£)
+                        card_mod:
+                          style: >
+                            ha-card { background: transparent; box-shadow: none; }
+                      - type: button
+                        entity: input_button.brain_save_ingredient
+                        name: Save Ingredient
+                        icon: mdi:database-plus
+                        card_mod:
+                          style: >
+                            ha-card { background: rgba(100,160,255,0.15); border-radius: 12px; margin: 4px 8px 8px; }
+
+                # ── Add Snack ────────────────────────────────────────────────
+                - type: custom:mod-card
+                  card_mod:
+                    style: |
+                      ha-card {
+                        border-radius: 18px;
+                        background: rgba(248,225,231,0.80);
+                        box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+                        padding: 4px;
+                      }
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:mushroom-title-card
+                        title: Add Snack
+                        card_mod:
+                          style: >
+                            ha-card { background: transparent; box-shadow: none; padding: 4px 8px 0; }
+                      - type: entities
+                        entities:
+                          - entity: input_text.brain_snack_name
+                            name: Name
+                          - entity: input_text.brain_snack_default_qty
+                            name: Default Quantity
+                        card_mod:
+                          style: >
+                            ha-card { background: transparent; box-shadow: none; }
+                      - type: button
+                        entity: input_button.brain_save_snack
+                        name: Save Snack
+                        icon: mdi:cookie
+                        card_mod:
+                          style: >
+                            ha-card { background: rgba(248,100,140,0.12); border-radius: 12px; margin: 4px 8px 8px; }

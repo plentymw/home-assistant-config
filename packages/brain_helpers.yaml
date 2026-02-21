@@ -1,0 +1,100 @@
+# ============================================================================
+# BRAIN - DATABASE MANAGEMENT HELPERS
+# ============================================================================
+
+input_text:
+  # Ingredient form
+  brain_ingredient_name:
+    name: Ingredient Name
+    max: 100
+  brain_ingredient_unit:
+    name: Unit
+    max: 20
+    initial: "g"
+  brain_ingredient_cost_per_unit:
+    name: Cost per unit (£)
+    max: 10
+    initial: "0"
+  brain_ingredient_kcal:
+    name: Kcal per unit
+    max: 10
+    initial: "0"
+  brain_ingredient_protein:
+    name: Protein per unit (g)
+    max: 10
+    initial: "0"
+  brain_ingredient_carbs:
+    name: Carbs per unit (g)
+    max: 10
+    initial: "0"
+  brain_ingredient_fat:
+    name: Fat per unit (g)
+    max: 10
+    initial: "0"
+  brain_ingredient_pack_size:
+    name: Pack size
+    max: 10
+    initial: "0"
+  brain_ingredient_pack_cost:
+    name: Pack cost (£)
+    max: 10
+    initial: "0"
+
+  # Recipe form
+  brain_recipe_name:
+    name: Recipe Name
+    max: 100
+  brain_recipe_meal_type:
+    name: Meal Type
+    max: 20
+    initial: "dinner"
+
+  # Snack form
+  brain_snack_name:
+    name: Snack Name
+    max: 100
+  brain_snack_default_qty:
+    name: Default Quantity
+    max: 10
+    initial: "1"
+
+input_number:
+  brain_portion_michael:
+    name: Michael Portion
+    min: 0
+    max: 2000
+    step: 1
+    mode: box
+  brain_portion_lorna:
+    name: Lorna Portion
+    min: 0
+    max: 2000
+    step: 1
+    mode: box
+  brain_portion_izzy:
+    name: Izzy Portion
+    min: 0
+    max: 2000
+    step: 1
+    mode: box
+
+input_select:
+  brain_ingredient_select:
+    name: Select Ingredient (for recipe)
+    options:
+      - "None"
+    initial: "None"
+
+input_button:
+  brain_save_ingredient:
+    name: Save Ingredient
+    icon: mdi:database-plus
+  brain_save_recipe:
+    name: Save Recipe
+    icon: mdi:food-variant
+  brain_save_snack:
+    name: Save Snack
+    icon: mdi:cookie
+  brain_refresh_ingredients:
+    name: Refresh Ingredient List
+    icon: mdi:refresh
