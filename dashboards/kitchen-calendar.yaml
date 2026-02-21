@@ -31,6 +31,9 @@ views:
                     recursive: true
                   auto_advance_duration: 15
                   hide_title: true
+                  hide_controls: true
+                  hide_navigation: true
+                  show_source: false
                   aspect_mode: default
                   max_height_pixels: 1100
                   card_mod:
@@ -44,19 +47,26 @@ views:
                         box-shadow: 0 12px 34px rgba(0,0,0,0.20);
                       }
 
-                      /* Hide folder icon and "Media...family" title overlay */
+                      /* Hide folder/source label — try all selector approaches */
                       ha-card .media-card__title,
-                      ha-card .title,
-                      ha-card .caption,
+                      ha-card .media-card__source,
+                      ha-card .media-card__controls,
+                      ha-card .media-card__navigation,
+                      ha-card .card-header,
                       ha-card .header,
+                      ha-card hui-media-player-browse-card,
                       ha-card [class*="title"],
-                      ha-card [class*="caption"],
-                      ha-card [class*="folder"],
                       ha-card [class*="source"],
                       ha-card [class*="breadcrumb"],
-                      ha-card mwc-icon-button,
-                      ha-card ha-icon-button {
+                      ha-card [class*="folder"],
+                      ha-card [class*="caption"],
+                      ha-card [class*="controls"],
+                      ha-card [class*="navigation"] {
                         display: none !important;
+                        visibility: hidden !important;
+                        opacity: 0 !important;
+                        height: 0 !important;
+                        overflow: hidden !important;
                       }
                 - type: custom:mod-card
                   card_mod:
@@ -125,7 +135,7 @@ views:
               type: calendar
               entities:
                 - calendar.miclorn_gmail_com
-              initial_view: listMonth
+              initial_view: dayGridMonth
               card_mod:
                 style: |
                   ha-card { height: 100% !important; }
@@ -198,44 +208,6 @@ views:
 
                   ha-card .fc-button {
                     border-radius: 12px !important;
-                  }
-
-                  /* ── List-month view pastel ── */
-                  ha-card .fc-list-table {
-                    background: transparent;
-                  }
-
-                  /* Day header (e.g. "Saturday Feb 21") */
-                  ha-card .fc-list-day-cushion {
-                    background: linear-gradient(90deg, rgba(248,225,231,0.90), rgba(230,242,242,0.90)) !important;
-                    border-radius: 10px;
-                    padding: 6px 12px !important;
-                    font-weight: 600;
-                  }
-
-                  ha-card .fc-list-day th {
-                    background: transparent !important;
-                    border: none !important;
-                    padding: 6px 0 2px 0 !important;
-                  }
-
-                  /* Event rows */
-                  ha-card .fc-list-event td {
-                    background: rgba(232,241,255,0.55) !important;
-                  }
-
-                  ha-card .fc-list-event:hover td {
-                    background: rgba(232,241,255,0.80) !important;
-                  }
-
-                  /* Event dot */
-                  ha-card .fc-list-event-dot {
-                    border-color: rgba(100,160,255,0.85) !important;
-                  }
-
-                  /* Today's events slightly highlighted */
-                  ha-card .fc-list-event.fc-event-today td {
-                    background: rgba(255,242,204,0.65) !important;
                   }
           - type: grid
             columns: 7
