@@ -3,7 +3,14 @@
     "allow": [
       "mcp__home-assistant__ha_call_service",
       "mcp__home-assistant__ha_get_entity_state",
-      "mcp__home-assistant__ha_list_entities"
+      "mcp__home-assistant__ha_list_entities",
+      "mcp__home-assistant__ha_reload_config",
+      "mcp__home-assistant__ha_get_logs",
+      "mcp__home-assistant__ha_check_config",
+      "mcp__home-assistant__ha_get_entity_registry_entry",
+      "mcp__home-assistant__ha_remove_entity_registry_entry",
+      "mcp__home-assistant__ha_read_file",
+      "Bash(cd C:\\\\Users\\\\Michael\\\\home-assistant-config:*)"
     ]
   }
 }

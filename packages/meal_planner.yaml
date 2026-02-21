@@ -10,5 +10,24 @@ rest:
           - last_updated
           - week_cost
           - today_cost
+          - today_totals
+          - week_totals
           - wed_shopping
           - sun_shopping
+
+rest_command:
+  meal_planner_bulk_update_week_plan:
+    url: http://127.0.0.1:8000/week-plan/bulk-update
+    method: POST
+    headers:
+      content-type: application/json
+      accept: application/json
+    payload: "{{ payload }}"
+
+  meal_planner_bulk_update_snacks:
+    url: http://127.0.0.1:8000/snack-log/bulk-update
+    method: POST
+    headers:
+      content-type: application/json
+      accept: application/json
+    payload: "{{ payload }}"
