@@ -10,7 +10,13 @@
       "mcp__home-assistant__ha_get_entity_registry_entry",
       "mcp__home-assistant__ha_remove_entity_registry_entry",
       "mcp__home-assistant__ha_read_file",
-      "Bash(cd C:\\\\Users\\\\Michael\\\\home-assistant-config:*)"
+      "Bash(cd C:\\\\Users\\\\Michael\\\\home-assistant-config:*)",
+      "mcp__home-assistant__ha_create_automation",
+      "mcp__home-assistant__ha_list_files",
+      "mcp__home-assistant__ha_write_file",
+      "WebSearch",
+      "WebFetch(domain:www.home-assistant.io)",
+      "WebFetch(domain:community.home-assistant.io)"
     ]
   }
 }

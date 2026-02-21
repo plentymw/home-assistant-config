@@ -119,10 +119,3 @@ lovelace:
       icon: mdi:home
       show_in_sidebar: true
       filename: dashboards/kitchen-calendar.yaml
-
-    brain:
-      mode: yaml
-      title: Brain
-      icon: mdi:database-cog
-      show_in_sidebar: true
-      filename: dashboards/brain.yaml
