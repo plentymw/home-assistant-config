@@ -1,1 +1,28 @@
-[]
+- id: brain_save_ingredient_automation
+  alias: Brain - Save Ingredient
+  triggers:
+  - platform: state
+    entity_id: input_button.brain_save_ingredient
+  conditions: []
+  actions:
+  - action: rest_command.brain_add_ingredient
+  - target:
+      entity_id: input_text.brain_ingredient_name
+    data:
+      value: ''
+    action: input_text.set_value
+  mode: single
+- id: brain_save_snack_automation
+  alias: Brain - Save Snack
+  triggers:
+  - platform: state
+    entity_id: input_button.brain_save_snack
+  conditions: []
+  actions:
+  - action: rest_command.brain_add_snack
+  - target:
+      entity_id: input_text.brain_snack_name
+    data:
+      value: ''
+    action: input_text.set_value
+  mode: single

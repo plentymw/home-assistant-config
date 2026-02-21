@@ -31,31 +31,3 @@ rest_command:
       content-type: application/json
       accept: application/json
     payload: "{{ payload }}"
-
-  brain_add_ingredient:
-    url: "http://127.0.0.1:8000/ingredients"
-    method: POST
-    content_type: "application/json"
-    payload: >
-      {
-        "name": "{{ states('input_text.brain_ingredient_name') }}",
-        "unit": "{{ states('input_text.brain_ingredient_unit') }}",
-        "cost_per_unit": {{ states('input_text.brain_ingredient_cost_per_unit') | float(0) }},
-        "kcal_per_unit": {{ states('input_text.brain_ingredient_kcal') | float(0) }},
-        "protein_per_unit": {{ states('input_text.brain_ingredient_protein') | float(0) }},
-        "carbs_per_unit": {{ states('input_text.brain_ingredient_carbs') | float(0) }},
-        "fat_per_unit": {{ states('input_text.brain_ingredient_fat') | float(0) }},
-        "pack_size": {{ states('input_text.brain_ingredient_pack_size') | float(0) }},
-        "pack_cost": {{ states('input_text.brain_ingredient_pack_cost') | float(0) }}
-      }
-
-  brain_add_snack:
-    url: "http://127.0.0.1:8000/snacks"
-    method: POST
-    content_type: "application/json"
-    payload: >
-      {
-        "name": "{{ states('input_text.brain_snack_name') }}",
-        "ingredient_id": 1,
-        "default_quantity": {{ states('input_text.brain_snack_default_qty') | float(1) }}
-      }
