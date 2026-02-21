@@ -1,64 +1,14 @@
-# Meal Planner: pull data from the add-on container
-# IMPORTANT: Home Assistant Core can resolve add-ons as: addon_<slug>
-
 rest:
-  - resource: http://addon_local_meal_planner_api:8000/
-    method: GET
-    scan_interval: 30
-    sensor:
-      - name: Meal Planner API Status
-        unique_id: meal_planner_api_status
-        value_template: "{{ value_json.status }}"
-        json_attributes:
-          - service
-          - version
-
-  - resource: http://addon_local_meal_planner_api:8000/week-totals
-    method: GET
+  - resource: http://127.0.0.1:8000/week-totals
     scan_interval: 30
     sensor:
       - name: Meal Planner Week Raw
         unique_id: meal_planner_week_raw
-        value_template: "OK"
+        value_template: "{{ value_json.last_updated }}"
         json_attributes:
           - week_start
           - last_updated
           - week_cost
-          - week_totals
+          - today_cost
           - wed_shopping
           - sun_shopping
-
-template:
-  - sensor:
-      - name: Meal Planner Last Updated
-        unique_id: meal_planner_last_updated
-        state: "{{ state_attr('sensor.meal_planner_week_raw','last_updated') }}"
-
-      - name: Meal Planner Week Start
-        unique_id: meal_planner_week_start
-        state: "{{ state_attr('sensor.meal_planner_week_raw','week_start') }}"
-
-      - name: Meal Planner Week Cost
-        unique_id: meal_planner_week_cost
-        unit_of_measurement: "£"
-        state: "{{ (state_attr('sensor.meal_planner_week_raw','week_cost') | float(0)) | round(2) }}"
-
-      - name: Meal Planner Week Totals
-        unique_id: meal_planner_week_totals
-        state: "{{ state_attr('sensor.meal_planner_week_raw','week_totals') | tojson }}"
-
-      - name: Meal Planner Wed Shopping Text
-        unique_id: meal_planner_wed_shopping_text
-        state: "{{ state_attr('sensor.meal_planner_week_raw','wed_shopping') | tojson }}"
-
-      - name: Meal Planner Sun Shopping Text
-        unique_id: meal_planner_sun_shopping_text
-        state: "{{ state_attr('sensor.meal_planner_week_raw','sun_shopping') | tojson }}"
-
-      - name: Meal Planner Wed Shopping Count
-        unique_id: meal_planner_wed_shopping_count
-        state: "{{ (state_attr('sensor.meal_planner_week_raw','wed_shopping') or []) | count }}"
-
-      - name: Meal Planner Sun Shopping Count
-        unique_id: meal_planner_sun_shopping_count
-        state: "{{ (state_attr('sensor.meal_planner_week_raw','sun_shopping') or []) | count }}"
