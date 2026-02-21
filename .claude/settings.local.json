@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Home_Assistant__ha_call_service"
+    ]
+  }
+}
