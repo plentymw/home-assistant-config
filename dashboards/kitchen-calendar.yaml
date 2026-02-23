@@ -1,4 +1,4 @@
-title: Kitchen Calendar
+﻿title: Kitchen Calendar
 views:
   - type: panel
     title: Screen 1
@@ -2718,3 +2718,11 @@ views:
     path: test
     title: Test
     cards: []
+
+  - title: Meal Planner
+    path: meal-planner
+    icon: mdi:food
+    cards:
+      - type: iframe
+        url: /local/meal-planner-web/index.html
+        aspect_ratio: 80%
