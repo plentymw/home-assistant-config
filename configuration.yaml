@@ -1,4 +1,4 @@
-﻿default_config:
+default_config:
 
 homeassistant:
   packages: !include_dir_named packages
@@ -25,11 +25,11 @@ template:
         state: >
           {% set cond = states('weather.met_office_shawlands') %}
           {% set t = state_attr('weather.met_office_shawlands','temperature') %}
-          {{ (cond | title) ~ '  ' ~ ((t | round(0)) if t is number else t) ~ 'Â°C' }}
+          {{ (cond | title) ~ '  ' ~ ((t | round(0)) if t is number else t) ~ '°C' }}
 
       - name: Kitchen Temp
         state: "{{ state_attr('weather.met_office_shawlands','temperature') | round(0) }}"
-        unit_of_measurement: "Â°C"
+        unit_of_measurement: "°C"
 
       - name: Shop Wed Full
         state: "{{ states('input_text.shop_wed') }}"
@@ -40,12 +40,12 @@ template:
   - sensor:
       - name: Meal Planner Week Cost
         unique_id: meal_planner_week_cost
-        unit_of_measurement: "Â£"
+        unit_of_measurement: "£"
         state: "{{ state_attr('sensor.meal_planner_week_raw', 'week_cost') | default(0) }}"
 
       - name: Meal Planner Today Cost
         unique_id: meal_planner_today_cost
-        unit_of_measurement: "Â£"
+        unit_of_measurement: "£"
         state: "{{ state_attr('sensor.meal_planner_week_raw', 'today_cost') | default(0) }}"
 
       - name: Meal Planner Week Start
@@ -88,7 +88,7 @@ template:
           text: >
             {% set items = state_attr('sensor.meal_planner_week_raw','wed_shopping') | default([]) %}
             {% for i in items %}
-            - {{ i.ingredient }}: {{ i.quantity }} {{ i.unit }} (Â£{{ i.cost }})
+            - {{ i.ingredient }}: {{ i.quantity }} {{ i.unit }} (£{{ i.cost }})
             {% endfor %}
 
       - name: Meal Planner Sun Shopping Text
@@ -101,17 +101,11 @@ template:
           text: >
             {% set items = state_attr('sensor.meal_planner_week_raw','sun_shopping') | default([]) %}
             {% for i in items %}
-            - {{ i.ingredient }}: {{ i.quantity }} {{ i.unit }} (Â£{{ i.cost }})
+            - {{ i.ingredient }}: {{ i.quantity }} {{ i.unit }} (£{{ i.cost }})
             {% endfor %}
 
 lovelace:
-  dashboards:
-    meal_planner_test:
-      mode: yaml
-      title: Meal Planner Test
-      icon: mdi:food
-      show_in_sidebar: true
-      filename: dashboards/meal-planner-test.yaml
+  dashboards:
     year-planner:
       mode: yaml
       title: Year Planner
