@@ -1,5 +1,6 @@
-﻿title: Kitchen Calendar
-views:
+title: Kitchen Calendar
+views:
+
 
   - type: panel
     title: Screen 1
@@ -138,78 +139,70 @@ views:
                 - calendar.miclorn_gmail_com
               initial_view: dayGridMonth
               card_mod:
-                style: |
-                  ha-card { height: 100% !important; }
+                style:
+                  ha-full-calendar:
+                    $: |
+                      /* sanity check - month title should go red */
+                      .fc-toolbar-title { color: red !important; }
 
-                  /* FullCalendar height fill */
-                  ha-card .fc,
-                  ha-card .fc-view-harness,
-                  ha-card .fc-view-harness-active,
-                  ha-card .fc-scrollgrid,
-                  ha-card .fc-scrollgrid-section,
-                  ha-card .fc-scrollgrid-sync-table {
-                    height: 100% !important;
-                  }
+                      /* make the calendar fill its available height */
+                      #calendar { height: 100% !important; }
 
-                  ha-card .fc-scroller,
-                  ha-card .fc-scroller-liquid-absolute {
-                    height: 100% !important;
-                    overflow: hidden !important;
-                  }
+                      .fc {
+                        height: 100% !important;
+                        display: flex !important;
+                        flex-direction: column !important;
+                      }
 
-                  ha-card .fc-daygrid-body,
-                  ha-card .fc-daygrid-body-unbalanced {
-                    height: 100% !important;
-                  }
+                      .fc-view-harness {
+                        flex: 1 1 auto !important;
+                        min-height: 0 !important;
+                      }
 
-                  /* Month header bar (title + nav) */
-                  ha-card .fc-toolbar {
-                    background: linear-gradient(90deg, rgba(248,225,231,0.95), rgba(230,242,242,0.95));
-                    border-radius: 14px;
-                    padding: 10px 14px;
-                    margin: 10px 10px 8px 10px;
-                    box-shadow: 0 6px 14px rgba(0,0,0,0.06);
-                  }
+                      /* force the month grid table to stretch */
+                      .fc-daygrid-body,
+                      .fc-daygrid-body table,
+                      table.fc-scrollgrid-sync-table {
+                        height: 100% !important;
+                      }
 
-                  /* Day name row (Mon Tue...) */
-                  ha-card .fc-col-header-cell {
-                    background: rgba(232,241,255,0.85);   /* pastel blue */
-                  }
+                      /* distribute height across week rows (usually 6) */
+                      .fc-daygrid-body tbody tr {
+                        height: calc(100% / 6) !important;
+                      }
 
-                  /* Day cells background slightly warm */
-                  ha-card .fc-daygrid-day-frame {
-                    background: rgba(255,255,255,0.65);
-                  }
+                      .fc-daygrid-day,
+                      .fc-daygrid-day-frame {
+                        height: 100% !important;
+                      }
 
-                  /* Softer borders */
-                  ha-card .fc-theme-standard td,
-                  ha-card .fc-theme-standard th,
-                  ha-card .fc-scrollgrid,
-                  ha-card .fc-scrollgrid td,
-                  ha-card .fc-scrollgrid th {
-                    border-color: rgba(0,0,0,0.06) !important;
-                  }
+                      /* your styling */
+                      .fc-toolbar {
+                        background: linear-gradient(90deg, rgba(248,225,231,0.95), rgba(230,242,242,0.95));
+                        border-radius: 14px;
+                        padding: 10px 14px;
+                        margin: 10px 10px 8px 10px;
+                        box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+                      }
 
-                  /* Today highlight */
-                  ha-card .fc-day-today {
-                    background: rgba(255, 242, 204, 0.55) !important; /* pastel yellow */
-                  }
+                      .fc-col-header-cell { background: rgba(232,241,255,0.85); }
+                      .fc-daygrid-day-frame { background: rgba(255,255,255,0.65); }
 
-                  /* Event pills */
-                  ha-card .fc-event {
-                    background: rgba(180, 210, 255, 0.60) !important;
-                    border: 1px solid rgba(180, 210, 255, 0.85) !important;
-                    border-radius: 10px !important;
-                  }
+                      .fc-theme-standard td,
+                      .fc-theme-standard th,
+                      .fc-scrollgrid,
+                      .fc-scrollgrid td,
+                      .fc-scrollgrid th {
+                        border-color: rgba(0,0,0,0.06) !important;
+                      }
 
-                  ha-card .fc-event-title {
-                    color: rgba(25,25,25,0.92) !important;
-                    font-weight: 600;
-                  }
+                      .fc-day-today { background: rgba(255, 242, 204, 0.55) !important; }
 
-                  ha-card .fc-button {
-                    border-radius: 12px !important;
-                  }
+                      .fc-event {
+                        background: rgba(180, 210, 255, 0.60) !important;
+                        border: 1px solid rgba(180, 210, 255, 0.85) !important;
+                        border-radius: 10px !important;
+                      }
           - type: grid
             columns: 7
             square: false
