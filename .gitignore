@@ -28,3 +28,11 @@ tts/
 custom_components/hacs/hacs_frontend/static/
 custom_components/hacs/hacs_frontend/entrypoint.js
 custom_components/hacs/hacs_frontend/version.py
+# Local backup/temp files
+*.bak
+*.bak.*
+*~
+*.rebasefix.bak
+dashboards/*.bak.*
+dashboards/*.yaml~
+ha_vibecode_git/
