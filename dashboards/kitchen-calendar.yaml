@@ -1,4 +1,4 @@
-title: Kitchen Calendar
+﻿title: Kitchen Calendar
 views:
   - type: panel
     title: Screen 1
@@ -47,7 +47,7 @@ views:
                         box-shadow: 0 12px 34px rgba(0,0,0,0.20);
                       }
 
-                      /* Hide folder/source label — try all selector approaches */
+                      /* Hide folder/source label â€” try all selector approaches */
                       ha-card .media-card__title,
                       ha-card .media-card__source,
                       ha-card .media-card__controls,
@@ -123,11 +123,11 @@ views:
             card_mod:
               style: |
                 ha-card {
-                  height: 850px;     /* TUNE: 600–900 */
+                  height: 850px;     /* TUNE: 600â€“900 */
                   overflow: hidden;
                   border-radius: 18px;
 
-                  /* Stronger pastel base so it’s visible from a distance */
+                  /* Stronger pastel base so itâ€™s visible from a distance */
                   background: rgba(248, 241, 249, 0.85);   /* soft lilac wash */
                   box-shadow: 0 10px 28px rgba(0,0,0,0.10);
                 }
@@ -660,7 +660,7 @@ views:
                 cards:
                   - type: custom:mushroom-title-card
                     title: Dinner
-                    subtitle: Michael · Lorna · Izzy
+                    subtitle: Michael Â· Lorna Â· Izzy
                     card_mod:
                       style: >
                         ha-card { background: transparent; box-shadow: none;
@@ -779,7 +779,7 @@ views:
                 cards:
                   - type: custom:mushroom-title-card
                     title: Night smoothie
-                    subtitle: Michael · Lorna (tap to toggle)
+                    subtitle: Michael Â· Lorna (tap to toggle)
                     card_mod:
                       style: >
                         ha-card { background: transparent; box-shadow: none;
@@ -867,7 +867,7 @@ views:
                 cards:
                   - type: custom:mushroom-title-card
                     title: Lunch
-                    subtitle: Michael · Lorna · Izzy
+                    subtitle: Michael Â· Lorna Â· Izzy
                     card_mod:
                       style: >
                         ha-card { background: transparent; box-shadow: none;
@@ -986,7 +986,7 @@ views:
                 cards:
                   - type: custom:mushroom-title-card
                     title: Breakfast
-                    subtitle: Michael · Lorna · Izzy
+                    subtitle: Michael Â· Lorna Â· Izzy
                     card_mod:
                       style: >
                         ha-card { background: transparent; box-shadow: none;
@@ -1981,7 +1981,7 @@ views:
                 cards:
                   - type: custom:mushroom-title-card
                     title: Today + Weekly totals
-                    subtitle: Cost · Calories · Macros
+                    subtitle: Cost Â· Calories Â· Macros
                     card_mod:
                       style: >
                         ha-card { background: transparent; box-shadow: none;
@@ -1992,7 +1992,7 @@ views:
                     cards:
                       - type: custom:mushroom-template-card
                         primary: Today cost
-                        secondary: £{{ states('sensor.today_cost') }}
+                        secondary: Â£{{ states('sensor.today_cost') }}
                         icon: mdi:currency-gbp
                         card_mod:
                           style: >
@@ -2002,9 +2002,9 @@ views:
                       - type: custom:mushroom-template-card
                         primary: Michael today
                         secondary: >
-                          {{ states('sensor.michael_today_kcal') }} kcal · P {{
-                          states('sensor.michael_today_protein') }}g · C {{
-                          states('sensor.michael_today_carbs') }}g · F {{
+                          {{ states('sensor.michael_today_kcal') }} kcal Â· P {{
+                          states('sensor.michael_today_protein') }}g Â· C {{
+                          states('sensor.michael_today_carbs') }}g Â· F {{
                           states('sensor.michael_today_fat') }}g
                         icon: mdi:account
                         multiline_secondary: true
@@ -2016,9 +2016,9 @@ views:
                       - type: custom:mushroom-template-card
                         primary: Lorna today
                         secondary: >
-                          {{ states('sensor.lorna_today_kcal') }} kcal · P {{
-                          states('sensor.lorna_today_protein') }}g · C {{
-                          states('sensor.lorna_today_carbs') }}g · F {{
+                          {{ states('sensor.lorna_today_kcal') }} kcal Â· P {{
+                          states('sensor.lorna_today_protein') }}g Â· C {{
+                          states('sensor.lorna_today_carbs') }}g Â· F {{
                           states('sensor.lorna_today_fat') }}g
                         icon: mdi:account
                         multiline_secondary: true
@@ -2030,9 +2030,9 @@ views:
                       - type: custom:mushroom-template-card
                         primary: Izzy today
                         secondary: >
-                          {{ states('sensor.izzy_today_kcal') }} kcal · P {{
-                          states('sensor.izzy_today_protein') }}g · C {{
-                          states('sensor.izzy_today_carbs') }}g · F {{
+                          {{ states('sensor.izzy_today_kcal') }} kcal Â· P {{
+                          states('sensor.izzy_today_protein') }}g Â· C {{
+                          states('sensor.izzy_today_carbs') }}g Â· F {{
                           states('sensor.izzy_today_fat') }}g
                         icon: mdi:account-child
                         multiline_secondary: true
@@ -2047,7 +2047,7 @@ views:
                     cards:
                       - type: custom:mushroom-template-card
                         primary: Week cost
-                        secondary: £{{ states('sensor.week_cost') }}
+                        secondary: Â£{{ states('sensor.week_cost') }}
                         icon: mdi:cash
                         card_mod:
                           style: >
@@ -2264,7 +2264,7 @@ views:
             cards:
               - type: custom:mushroom-template-card
                 primary: Income
-                secondary: £{{ states('sensor.finance_monthly_income') }}
+                secondary: Â£{{ states('sensor.finance_monthly_income') }}
                 icon: mdi:arrow-down-bold-circle
                 fill_container: true
                 card_mod:
@@ -2283,7 +2283,7 @@ views:
                     !important; }
               - type: custom:mushroom-template-card
                 primary: Fixed
-                secondary: £{{ states('sensor.finance_fixed_commitments') }}
+                secondary: Â£{{ states('sensor.finance_fixed_commitments') }}
                 icon: mdi:calendar-check
                 fill_container: true
                 card_mod:
@@ -2302,7 +2302,7 @@ views:
                     !important; }
               - type: custom:mushroom-template-card
                 primary: Variable
-                secondary: £{{ states('sensor.finance_variable_budget') }}
+                secondary: Â£{{ states('sensor.finance_variable_budget') }}
                 icon: mdi:cart-variant
                 fill_container: true
                 card_mod:
@@ -2321,7 +2321,7 @@ views:
                     !important; }
               - type: custom:mushroom-template-card
                 primary: Net
-                secondary: £{{ states('sensor.finance_net_remaining') }}
+                secondary: Â£{{ states('sensor.finance_net_remaining') }}
                 icon: mdi:scale-balance
                 fill_container: true
                 card_mod:
@@ -2545,7 +2545,7 @@ views:
                           padding: 10px 12px; }
                     - type: custom:mushroom-template-card
                       primary: Annual total
-                      secondary: £{{ states('sensor.finance_annual_total') }}
+                      secondary: Â£{{ states('sensor.finance_annual_total') }}
                       icon: mdi:calendar
                       fill_container: true
                       card_mod:
@@ -2554,7 +2554,7 @@ views:
                           padding: 10px 12px; }
                     - type: custom:mushroom-template-card
                       primary: Fixed total
-                      secondary: £{{ states('sensor.finance_fixed_commitments') }}
+                      secondary: Â£{{ states('sensor.finance_fixed_commitments') }}
                       icon: mdi:cash-check
                       fill_container: true
                       card_mod:
@@ -2725,13 +2725,15 @@ views:
     cards:
       - type: iframe
         url: /local/meal-planner-web/index.html
-        aspect_ratio: 80%
+        aspect_ratio: 140%
 
   - title: Meal Planner Test
     path: meal-planner-test
     icon: mdi:food
+    panel: true
     cards:
       - type: iframe
         url: /local/meal-planner-web/index.html
-        aspect_ratio: 80%
+        aspect_ratio: 140%
+
 
