@@ -1,9 +1,0 @@
-﻿title: Meal Planner Test
-views:
-  - title: Meal Planner
-    path: meal-planner-test
-    icon: mdi:food
-    cards:
-      - type: iframe
-        url: /local/meal-planner-web/index.html
-        aspect_ratio: 80%
