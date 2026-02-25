@@ -49,7 +49,7 @@ views:
                         box-shadow: 0 12px 34px rgba(0,0,0,0.20);
                       }
 
-                      /* Hide folder/source label ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚ try all selector approaches */
+                      /* Hide folder/source label ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡ try all selector approaches */
                       ha-card .media-card__title,
                       ha-card .media-card__source,
                       ha-card .media-card__controls,
@@ -125,11 +125,11 @@ views:
             card_mod:
               style: |
                 ha-card {
-                  height: 850px;     /* TUNE: 600ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ900 */
+                  height: 850px;     /* TUNE: 600ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ900 */
                   overflow: hidden;
                   border-radius: 18px;
 
-                  /* Stronger pastel base so itÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢s visible from a distance */
+                  /* Stronger pastel base so itÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¾ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢s visible from a distance */
                   background: rgba(248, 241, 249, 0.85);   /* soft lilac wash */
                   box-shadow: 0 10px 28px rgba(0,0,0,0.10);
                 }
@@ -141,49 +141,18 @@ views:
               card_mod:
                 style:
                   .: |
-                    ha-card {
-                      height: 520px !important;
-                      overflow: hidden !important;
-                      display: flex !important;
-                      flex-direction: column !important;
+                    ha-full-calendar {
+                      --calendar-height: 520px !important;
                     }
                   ha-full-calendar:
                     $: |
-                      /* sanity check: title red (remove later) */
-                      .fc-toolbar-title { color: red !important; }
+                      #calendar {
+                        height: var(--calendar-height) !important;
+                        min-height: var(--calendar-height) !important;
+                      }
+                      .fc { height: 100% !important; }
 
-                      #calendar { height: 100% !important; }
-                      .fc { height: 100% !important; display: flex !important; flex-direction: column !important; }
-                      .fc-view-harness { flex: 1 1 auto !important; min-height: 0 !important; }
-
-                      /* force month grid container to fill */
-                      .fc-scrollgrid,
-                      .fc-scrollgrid-section,
-                      .fc-scrollgrid-section-body,
-                      .fc-daygrid-body {
-                        height: 100% !important;
-                      }
-
-                      /* KEY FIX: make week rows share height equally */
-                      .fc-daygrid-body table {
-                        height: 100% !important;
-                        table-layout: fixed !important;
-                      }
-                      .fc-daygrid-body table tbody {
-                        height: 100% !important;
-                        display: flex !important;
-                        flex-direction: column !important;
-                      }
-                      .fc-daygrid-body table tbody > tr {
-                        flex: 1 1 0 !important;
-                        display: flex !important;
-                      }
-                      .fc-daygrid-body table tbody > tr > td {
-                        flex: 1 1 0 !important;
-                      }
-                      .fc-daygrid-day-frame { height: 100% !important; }
-
-                      /* your styling */
+                      /* keep your styling */
                       .fc-toolbar {
                         background: linear-gradient(90deg, rgba(248,225,231,0.95), rgba(230,242,242,0.95));
                         border-radius: 14px;
@@ -204,6 +173,8 @@ views:
                         border: 1px solid rgba(180, 210, 255, 0.85) !important;
                         border-radius: 10px !important;
                       }
+                      .fc-event-title { color: rgba(25,25,25,0.92) !important; font-weight: 600; }
+                      .fc-button { border-radius: 12px !important; }
           - type: grid
             columns: 7
             square: false
@@ -554,7 +525,7 @@ views:
             cards:
               - type: custom:mushroom-template-card
                 primary: Income
-                secondary: ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_monthly_income') }}
+                secondary: ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_monthly_income') }}
                 icon: mdi:arrow-down-bold-circle
                 fill_container: true
                 card_mod:
@@ -573,7 +544,7 @@ views:
                     !important; }
               - type: custom:mushroom-template-card
                 primary: Fixed
-                secondary: ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_fixed_commitments') }}
+                secondary: ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_fixed_commitments') }}
                 icon: mdi:calendar-check
                 fill_container: true
                 card_mod:
@@ -592,7 +563,7 @@ views:
                     !important; }
               - type: custom:mushroom-template-card
                 primary: Variable
-                secondary: ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_variable_budget') }}
+                secondary: ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_variable_budget') }}
                 icon: mdi:cart-variant
                 fill_container: true
                 card_mod:
@@ -611,7 +582,7 @@ views:
                     !important; }
               - type: custom:mushroom-template-card
                 primary: Net
-                secondary: ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_net_remaining') }}
+                secondary: ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_net_remaining') }}
                 icon: mdi:scale-balance
                 fill_container: true
                 card_mod:
@@ -835,7 +806,7 @@ views:
                           padding: 10px 12px; }
                     - type: custom:mushroom-template-card
                       primary: Annual total
-                      secondary: ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_annual_total') }}
+                      secondary: ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_annual_total') }}
                       icon: mdi:calendar
                       fill_container: true
                       card_mod:
@@ -844,7 +815,7 @@ views:
                           padding: 10px 12px; }
                     - type: custom:mushroom-template-card
                       primary: Fixed total
-                      secondary: ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_fixed_commitments') }}
+                      secondary: ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â£{{ states('sensor.finance_fixed_commitments') }}
                       icon: mdi:cash-check
                       fill_container: true
                       card_mod:
