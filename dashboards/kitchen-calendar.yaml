@@ -49,7 +49,7 @@ views:
                         box-shadow: 0 12px 34px rgba(0,0,0,0.20);
                       }
 
-                      /* Hide folder/source label â€” try all selector approaches */
+                      /* Hide folder/source label ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â try all selector approaches */
                       ha-card .media-card__title,
                       ha-card .media-card__source,
                       ha-card .media-card__controls,
@@ -125,11 +125,11 @@ views:
             card_mod:
               style: |
                 ha-card {
-                  height: 850px;     /* TUNE: 600â€“900 */
+                  height: 850px;     /* TUNE: 600ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“900 */
                   overflow: hidden;
                   border-radius: 18px;
 
-                  /* Stronger pastel base so itâ€™s visible from a distance */
+                  /* Stronger pastel base so itÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢s visible from a distance */
                   background: rgba(248, 241, 249, 0.85);   /* soft lilac wash */
                   box-shadow: 0 10px 28px rgba(0,0,0,0.10);
                 }
@@ -140,43 +140,37 @@ views:
               initial_view: dayGridMonth
               card_mod:
                 style:
+                  .: |
+                    ha-card {
+                      height: 520px !important;
+                      overflow: hidden !important;
+                    }
                   ha-full-calendar:
                     $: |
-                      /* sanity check - month title should go red */
+                      /* sanity check: title red (remove later) */
                       .fc-toolbar-title { color: red !important; }
 
-                      /* make the calendar fill its available height */
+                      /* make FullCalendar fill the card height */
                       #calendar { height: 100% !important; }
+                      .fc { height: 100% !important; display: flex !important; flex-direction: column !important; }
+                      .fc-view-harness { flex: 1 1 auto !important; min-height: 0 !important; }
 
-                      .fc {
-                        height: 100% !important;
-                        display: flex !important;
-                        flex-direction: column !important;
-                      }
-
-                      .fc-view-harness {
-                        flex: 1 1 auto !important;
-                        min-height: 0 !important;
-                      }
-
-                      /* force the month grid table to stretch */
+                      /* force the month grid to stretch */
+                      .fc-scrollgrid,
+                      .fc-scrollgrid-section,
+                      .fc-scrollgrid-section-body,
                       .fc-daygrid-body,
                       .fc-daygrid-body table,
                       table.fc-scrollgrid-sync-table {
                         height: 100% !important;
                       }
+                      .fc-daygrid-body table { table-layout: fixed !important; }
 
-                      /* distribute height across week rows (usually 6) */
-                      .fc-daygrid-body tbody tr {
-                        height: calc(100% / 6) !important;
-                      }
-
+                      /* IMPORTANT: no hard-coded /6 row height */
                       .fc-daygrid-day,
-                      .fc-daygrid-day-frame {
-                        height: 100% !important;
-                      }
+                      .fc-daygrid-day-frame { height: 100% !important; }
 
-                      /* your styling */
+                      /* keep your styling */
                       .fc-toolbar {
                         background: linear-gradient(90deg, rgba(248,225,231,0.95), rgba(230,242,242,0.95));
                         border-radius: 14px;
@@ -184,20 +178,14 @@ views:
                         margin: 10px 10px 8px 10px;
                         box-shadow: 0 6px 14px rgba(0,0,0,0.06);
                       }
-
                       .fc-col-header-cell { background: rgba(232,241,255,0.85); }
                       .fc-daygrid-day-frame { background: rgba(255,255,255,0.65); }
-
                       .fc-theme-standard td,
                       .fc-theme-standard th,
                       .fc-scrollgrid,
                       .fc-scrollgrid td,
-                      .fc-scrollgrid th {
-                        border-color: rgba(0,0,0,0.06) !important;
-                      }
-
+                      .fc-scrollgrid th { border-color: rgba(0,0,0,0.06) !important; }
                       .fc-day-today { background: rgba(255, 242, 204, 0.55) !important; }
-
                       .fc-event {
                         background: rgba(180, 210, 255, 0.60) !important;
                         border: 1px solid rgba(180, 210, 255, 0.85) !important;
@@ -553,7 +541,7 @@ views:
             cards:
               - type: custom:mushroom-template-card
                 primary: Income
-                secondary: Â£{{ states('sensor.finance_monthly_income') }}
+                secondary: Ãƒâ€šÃ‚Â£{{ states('sensor.finance_monthly_income') }}
                 icon: mdi:arrow-down-bold-circle
                 fill_container: true
                 card_mod:
@@ -572,7 +560,7 @@ views:
                     !important; }
               - type: custom:mushroom-template-card
                 primary: Fixed
-                secondary: Â£{{ states('sensor.finance_fixed_commitments') }}
+                secondary: Ãƒâ€šÃ‚Â£{{ states('sensor.finance_fixed_commitments') }}
                 icon: mdi:calendar-check
                 fill_container: true
                 card_mod:
@@ -591,7 +579,7 @@ views:
                     !important; }
               - type: custom:mushroom-template-card
                 primary: Variable
-                secondary: Â£{{ states('sensor.finance_variable_budget') }}
+                secondary: Ãƒâ€šÃ‚Â£{{ states('sensor.finance_variable_budget') }}
                 icon: mdi:cart-variant
                 fill_container: true
                 card_mod:
@@ -610,7 +598,7 @@ views:
                     !important; }
               - type: custom:mushroom-template-card
                 primary: Net
-                secondary: Â£{{ states('sensor.finance_net_remaining') }}
+                secondary: Ãƒâ€šÃ‚Â£{{ states('sensor.finance_net_remaining') }}
                 icon: mdi:scale-balance
                 fill_container: true
                 card_mod:
@@ -834,7 +822,7 @@ views:
                           padding: 10px 12px; }
                     - type: custom:mushroom-template-card
                       primary: Annual total
-                      secondary: Â£{{ states('sensor.finance_annual_total') }}
+                      secondary: Ãƒâ€šÃ‚Â£{{ states('sensor.finance_annual_total') }}
                       icon: mdi:calendar
                       fill_container: true
                       card_mod:
@@ -843,7 +831,7 @@ views:
                           padding: 10px 12px; }
                     - type: custom:mushroom-template-card
                       primary: Fixed total
-                      secondary: Â£{{ states('sensor.finance_fixed_commitments') }}
+                      secondary: Ãƒâ€šÃ‚Â£{{ states('sensor.finance_fixed_commitments') }}
                       icon: mdi:cash-check
                       fill_container: true
                       card_mod:
