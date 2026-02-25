@@ -2733,7 +2733,8 @@ views:
     panel: true
     cards:
       - type: iframe
-        url: /local/meal-planner-web/index.html
+        url: /local/meal-planner-web/index.html?v=20260225-072430
         aspect_ratio: 140%
+
 
 
