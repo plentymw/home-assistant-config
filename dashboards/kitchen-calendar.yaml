@@ -1,4 +1,4 @@
-title: Kitchen Calendar
+﻿title: Kitchen Calendar
 views:
 
 
@@ -833,82 +833,409 @@ views:
                           padding: 10px 12px; }
   - type: panel
     path: gadget-control
-    title: Gadget Control
-    icon: mdi:robot
+    title: Household Hub
+    icon: mdi:home-automation
     cards:
-      - type: vertical-stack
-        cards:
-          - type: markdown
-            content: |
-              # Household Hub
-              Large touch controls. No clutter.
-          - type: grid
-            columns: 4
-            square: false
-            cards:
-              - type: button
-                name: Lights
-                icon: mdi:lightbulb-group
-                entity: light.all_lights
-                tap_action:
-                  action: toggle
-              - type: button
-                name: Blinds
-                icon: mdi:blinds
-                entity: cover.blinds_all
-                tap_action:
-                  action: toggle
-              - type: thermostat
-                entity: climate.tado_home
-                name: Heating
-              - type: media-control
-                entity: media_player.spotify
-              - type: button
-                name: Dyson Robot
-                icon: mdi:robot-vacuum
-                entity: vacuum.dyson_robot
-                tap_action:
-                  action: call-service
-                  service: vacuum.start
-                  target:
-                    entity_id: vacuum.dyson_robot
-                hold_action:
-                  action: call-service
-                  service: vacuum.return_to_base
-                  target:
-                    entity_id: vacuum.dyson_robot
-              - type: button
-                name: Mop
-                icon: mdi:robot-mop
-                entity: vacuum.mop
-                tap_action:
-                  action: call-service
-                  service: vacuum.start
-                  target:
-                    entity_id: vacuum.mop
-                hold_action:
-                  action: call-service
-                  service: vacuum.return_to_base
-                  target:
-                    entity_id: vacuum.mop
-              - type: button
-                name: All Off
-                icon: mdi:power
-                entity: scene.all_off
-                tap_action:
-                  action: call-service
-                  service: scene.turn_on
-                  target:
-                    entity_id: scene.all_off
-              - type: button
-                name: Evening
-                icon: mdi:weather-sunset
-                entity: scene.evening
-                tap_action:
-                  action: call-service
-                  service: scene.turn_on
-                  target:
-                    entity_id: scene.evening
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              height: 100vh;
+              width: 100%;
+              padding: 18px;
+              box-sizing: border-box;
+              background: radial-gradient(1200px 700px at 50% 0%, rgba(210,235,255,0.60), rgba(255,255,255,0.95));
+              border-radius: 0;
+              box-shadow: none;
+              overflow: auto;
+            }
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:mushroom-title-card
+              title: Household Hub
+              subtitle: Whole-home shortcuts + room controls
+              card_mod:
+                style: >
+                  ha-card { background: transparent; box-shadow: none; padding: 0 2px 10px; }
+
+            - type: markdown
+              content: |
+                Tip: this page is styled + structured now. Next step is wiring entities per room (Hue/Tado/Covers/Vacuums/Media).
+              card_mod:
+                style: |
+                  ha-card { background: rgba(255,255,255,0.55); border-radius: 18px; padding: 10px 12px; }
+
+            # Quick actions (row 1)
+            - type: grid
+              columns: 4
+              square: false
+              cards:
+                - type: custom:mushroom-template-card
+                  primary: Lights
+                  secondary: Assign entity/group
+                  icon: mdi:lightbulb-group
+                  fill_container: true
+                  tap_action: { action: none }
+                  hold_action: { action: none }
+                  card_mod:
+                    style: |
+                      ha-card { background: rgba(217,243,245,0.85); border-radius: 18px; padding: 10px 12px; }
+                      .primary { font-size: 20px !important; }
+                      .secondary { font-size: 13px !important; opacity: 0.85; }
+
+                - type: custom:mushroom-template-card
+                  primary: Blinds
+                  secondary: Assign cover group
+                  icon: mdi:blinds
+                  fill_container: true
+                  tap_action: { action: none }
+                  hold_action: { action: none }
+                  card_mod:
+                    style: |
+                      ha-card { background: rgba(223,243,222,0.85); border-radius: 18px; padding: 10px 12px; }
+                      .primary { font-size: 20px !important; }
+                      .secondary { font-size: 13px !important; opacity: 0.85; }
+
+                - type: custom:mushroom-template-card
+                  primary: Heating
+                  secondary: Assign Tado climate
+                  icon: mdi:radiator
+                  fill_container: true
+                  tap_action: { action: none }
+                  hold_action: { action: none }
+                  card_mod:
+                    style: |
+                      ha-card { background: rgba(231,221,255,0.75); border-radius: 18px; padding: 10px 12px; }
+                      .primary { font-size: 20px !important; }
+                      .secondary { font-size: 13px !important; opacity: 0.85; }
+
+                - type: custom:mushroom-template-card
+                  primary: Music
+                  secondary: Spotify / Alexa
+                  icon: mdi:music
+                  fill_container: true
+                  tap_action: { action: none }
+                  hold_action: { action: none }
+                  card_mod:
+                    style: |
+                      ha-card { background: rgba(255,255,255,0.65); border-radius: 18px; padding: 10px 12px; }
+                      .primary { font-size: 20px !important; }
+                      .secondary { font-size: 13px !important; opacity: 0.85; }
+
+            # Quick actions (row 2)
+            - type: grid
+              columns: 4
+              square: false
+              cards:
+                - type: custom:mushroom-template-card
+                  primary: Vacuum
+                  secondary: Assign entity
+                  icon: mdi:robot-vacuum
+                  fill_container: true
+                  tap_action: { action: none }
+                  hold_action: { action: none }
+                  card_mod:
+                    style: |
+                      ha-card { background: rgba(210,235,255,0.70); border-radius: 18px; padding: 10px 12px; }
+                      .primary { font-size: 20px !important; }
+                      .secondary { font-size: 13px !important; opacity: 0.85; }
+
+                - type: custom:mushroom-template-card
+                  primary: Mop
+                  secondary: Assign entity
+                  icon: mdi:robot-mop
+                  fill_container: true
+                  tap_action: { action: none }
+                  hold_action: { action: none }
+                  card_mod:
+                    style: |
+                      ha-card { background: rgba(255,242,201,0.80); border-radius: 18px; padding: 10px 12px; }
+                      .primary { font-size: 20px !important; }
+                      .secondary { font-size: 13px !important; opacity: 0.85; }
+
+                - type: custom:mushroom-template-card
+                  primary: Evening
+                  secondary: Assign scene
+                  icon: mdi:weather-sunset
+                  fill_container: true
+                  tap_action: { action: none }
+                  hold_action: { action: none }
+                  card_mod:
+                    style: |
+                      ha-card { background: rgba(248,225,231,0.80); border-radius: 18px; padding: 10px 12px; }
+                      .primary { font-size: 20px !important; }
+                      .secondary { font-size: 13px !important; opacity: 0.85; }
+
+                - type: custom:mushroom-template-card
+                  primary: All Off
+                  secondary: Assign scene
+                  icon: mdi:power
+                  fill_container: true
+                  tap_action: { action: none }
+                  hold_action: { action: none }
+                  card_mod:
+                    style: |
+                      ha-card { background: rgba(255,255,255,0.65); border-radius: 18px; padding: 10px 12px; }
+                      .primary { font-size: 20px !important; }
+                      .secondary { font-size: 13px !important; opacity: 0.85; }
+
+            - type: custom:mushroom-title-card
+              title: Rooms
+              subtitle: Wire each room as entities are confirmed
+              card_mod:
+                style: >
+                  ha-card { background: transparent; box-shadow: none; padding: 10px 2px 6px; }
+
+            - type: grid
+              columns: 2
+              square: false
+              cards:
+                - type: custom:mod-card
+                  card_mod:
+                    style: |
+                      ha-card { border-radius: 22px; background: rgba(232,241,255,0.80); box-shadow: 0 10px 24px rgba(0,0,0,0.10); padding: 8px; }
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: Living room
+                        secondary: Hue • Shutters • Apple TV
+                        icon: mdi:sofa
+                        fill_container: true
+                        tap_action: { action: none }
+                        card_mod:
+                          style: |
+                            ha-card { background: rgba(255,255,255,0.60); border-radius: 18px; padding: 10px 12px; }
+                      - type: grid
+                        columns: 3
+                        square: false
+                        cards:
+                          - type: custom:mushroom-template-card
+                            primary: Lights
+                            secondary: Set entity
+                            icon: mdi:lightbulb
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: Shutters
+                            secondary: Set entity
+                            icon: mdi:window-shutter
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: TV
+                            secondary: Set entity
+                            icon: mdi:television
+                            tap_action: { action: none }
+
+                - type: custom:mod-card
+                  card_mod:
+                    style: |
+                      ha-card { border-radius: 22px; background: rgba(223,243,222,0.80); box-shadow: 0 10px 24px rgba(0,0,0,0.10); padding: 8px; }
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: Kitchen
+                        secondary: Hue • Heating • Appliances
+                        icon: mdi:chef-hat
+                        fill_container: true
+                        tap_action: { action: none }
+                        card_mod:
+                          style: |
+                            ha-card { background: rgba(255,255,255,0.60); border-radius: 18px; padding: 10px 12px; }
+                      - type: grid
+                        columns: 3
+                        square: false
+                        cards:
+                          - type: custom:mushroom-template-card
+                            primary: Lights
+                            secondary: Set entity
+                            icon: mdi:lightbulb
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: Heat
+                            secondary: Set entity
+                            icon: mdi:radiator
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: Dishwasher
+                            secondary: Status
+                            icon: mdi:dishwasher
+                            tap_action: { action: none }
+
+                - type: custom:mod-card
+                  card_mod:
+                    style: |
+                      ha-card { border-radius: 22px; background: rgba(231,221,255,0.80); box-shadow: 0 10px 24px rgba(0,0,0,0.10); padding: 8px; }
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: Main bedroom
+                        secondary: Hue • Blackout blinds • MusicCast
+                        icon: mdi:bed-king
+                        fill_container: true
+                        tap_action: { action: none }
+                        card_mod:
+                          style: |
+                            ha-card { background: rgba(255,255,255,0.60); border-radius: 18px; padding: 10px 12px; }
+                      - type: grid
+                        columns: 3
+                        square: false
+                        cards:
+                          - type: custom:mushroom-template-card
+                            primary: Lights
+                            secondary: Set entity
+                            icon: mdi:lightbulb
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: Blinds
+                            secondary: Set entity
+                            icon: mdi:blinds
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: Music
+                            secondary: Set entity
+                            icon: mdi:speaker
+                            tap_action: { action: none }
+
+                - type: custom:mod-card
+                  card_mod:
+                    style: |
+                      ha-card { border-radius: 22px; background: rgba(248,225,231,0.80); box-shadow: 0 10px 24px rgba(0,0,0,0.10); padding: 8px; }
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: Izzy room
+                        secondary: Hue • Blackout blinds • Alexa
+                        icon: mdi:teddy-bear
+                        fill_container: true
+                        tap_action: { action: none }
+                        card_mod:
+                          style: |
+                            ha-card { background: rgba(255,255,255,0.60); border-radius: 18px; padding: 10px 12px; }
+                      - type: grid
+                        columns: 3
+                        square: false
+                        cards:
+                          - type: custom:mushroom-template-card
+                            primary: Lights
+                            secondary: Set entity
+                            icon: mdi:lightbulb
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: Blinds
+                            secondary: Set entity
+                            icon: mdi:blinds
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: Alexa
+                            secondary: Set entity
+                            icon: mdi:amazon-alexa
+                            tap_action: { action: none }
+
+                - type: custom:mod-card
+                  card_mod:
+                    style: |
+                      ha-card { border-radius: 22px; background: rgba(255,242,201,0.85); box-shadow: 0 10px 24px rgba(0,0,0,0.10); padding: 8px; }
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: Hall
+                        secondary: Hue • Heating • Sensors
+                        icon: mdi:door
+                        fill_container: true
+                        tap_action: { action: none }
+                        card_mod:
+                          style: |
+                            ha-card { background: rgba(255,255,255,0.60); border-radius: 18px; padding: 10px 12px; }
+                      - type: grid
+                        columns: 3
+                        square: false
+                        cards:
+                          - type: custom:mushroom-template-card
+                            primary: Lights
+                            secondary: Set entity
+                            icon: mdi:lightbulb
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: Heat
+                            secondary: Set entity
+                            icon: mdi:radiator
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: Motion
+                            secondary: Set entity
+                            icon: mdi:motion-sensor
+                            tap_action: { action: none }
+
+                - type: custom:mod-card
+                  card_mod:
+                    style: |
+                      ha-card { border-radius: 22px; background: rgba(210,235,255,0.70); box-shadow: 0 10px 24px rgba(0,0,0,0.10); padding: 8px; }
+                  card:
+                    type: vertical-stack
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: Bathroom
+                        secondary: Hue • Fan • Heating
+                        icon: mdi:shower
+                        fill_container: true
+                        tap_action: { action: none }
+                        card_mod:
+                          style: |
+                            ha-card { background: rgba(255,255,255,0.60); border-radius: 18px; padding: 10px 12px; }
+                      - type: grid
+                        columns: 3
+                        square: false
+                        cards:
+                          - type: custom:mushroom-template-card
+                            primary: Lights
+                            secondary: Set entity
+                            icon: mdi:lightbulb
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: Fan
+                            secondary: Set entity
+                            icon: mdi:fan
+                            tap_action: { action: none }
+                          - type: custom:mushroom-template-card
+                            primary: Heat
+                            secondary: Set entity
+                            icon: mdi:radiator
+                            tap_action: { action: none }
+
+            - type: custom:mushroom-title-card
+              title: Systems
+              subtitle: Appliances + media integrations
+              card_mod:
+                style: >
+                  ha-card { background: transparent; box-shadow: none; padding: 10px 2px 6px; }
+
+            - type: grid
+              columns: 2
+              square: false
+              cards:
+                - type: markdown
+                  content: |
+                    Appliances
+                    - Dishwasher: add sensor/switch when available
+                    - Washing machine: add sensor/switch when available
+                  card_mod:
+                    style: |
+                      ha-card { background: rgba(255,255,255,0.70); border-radius: 22px; padding: 14px 16px; box-shadow: 0 10px 24px rgba(0,0,0,0.10); }
+
+                - type: markdown
+                  content: |
+                    Media
+                    - Alexa per room
+                    - MusicCast zones
+                    - Apple TV (living room)
+                  card_mod:
+                    style: |
+                      ha-card { background: rgba(231,221,255,0.55); border-radius: 22px; padding: 14px 16px; box-shadow: 0 10px 24px rgba(0,0,0,0.10); }
   - type: panel
     path: household-index
     title: Household Index
