@@ -867,6 +867,104 @@ views:
                   ha-card { background: rgba(255,255,255,0.55); border-radius: 18px; padding: 10px 12px; }
 
             # Quick actions (row 1)
+            - type: custom:mod-card
+              card_mod:
+                style: |
+                  ha-card { border-radius: 22px; background: rgba(255,255,255,0.65); box-shadow: 0 10px 24px rgba(0,0,0,0.10); padding: 10px 12px; }
+              card:
+                type: vertical-stack
+                cards:
+                  - type: custom:mushroom-title-card
+                    title: Media
+                    subtitle: Spotify to Alexa or MusicCast
+                    card_mod:
+                      style: >
+                        ha-card { background: transparent; box-shadow: none; padding: 2px 2px 8px; }
+
+                  - type: grid
+                    columns: 2
+                    square: false
+                    cards:
+                      - type: entities
+                        card_mod:
+                          style: |
+                            ha-card { background: rgba(255,255,255,0.55); border-radius: 18px; padding: 8px; }
+                        entities:
+                          - entity: input_select.household_audio_room
+                            name: Room
+                          - entity: input_select.household_audio_route
+                            name: Route
+
+                      - type: grid
+                        columns: 2
+                        square: false
+                        cards:
+                          - type: custom:mushroom-template-card
+                            primary: Transfer
+                            secondary: Set output
+                            icon: mdi:swap-horizontal
+                            tap_action:
+                              action: call-service
+                              service: script.household_audio_transfer_spotify
+                            card_mod:
+                              style: |
+                                ha-card { background: rgba(210,235,255,0.70); border-radius: 18px; padding: 10px 12px; }
+
+                          - type: custom:mushroom-template-card
+                            primary: Play/Pause
+                            secondary: Spotify session
+                            icon: mdi:play-pause
+                            tap_action:
+                              action: call-service
+                              service: media_player.media_play_pause
+                              target:
+                                entity_id: media_player.spotify
+                            card_mod:
+                              style: |
+                                ha-card { background: rgba(223,243,222,0.80); border-radius: 18px; padding: 10px 12px; }
+
+                  - type: grid
+                    columns: 3
+                    square: false
+                    cards:
+                      - type: custom:mushroom-template-card
+                        primary: Chill playlist
+                        secondary: Replace ID
+                        icon: mdi:playlist-music
+                        tap_action:
+                          action: call-service
+                          service: script.household_audio_play_spotify
+                          data:
+                            media_id: "spotify:playlist:REPLACE_ME"
+                            media_type: "playlist"
+                        card_mod:
+                          style: |
+                            ha-card { background: rgba(248,225,231,0.80); border-radius: 18px; padding: 10px 12px; }
+
+                      - type: custom:mushroom-template-card
+                        primary: Daily podcast
+                        secondary: Replace link
+                        icon: mdi:podcast
+                        tap_action:
+                          action: call-service
+                          service: script.household_audio_play_spotify
+                          data:
+                            media_id: "https://open.spotify.com/episode/REPLACE_ME"
+                            media_type: "music"
+                        card_mod:
+                          style: |
+                            ha-card { background: rgba(255,242,201,0.85); border-radius: 18px; padding: 10px 12px; }
+
+                      - type: custom:mushroom-template-card
+                        primary: Now playing
+                        secondary: Details
+                        icon: mdi:spotify
+                        tap_action:
+                          action: more-info
+                          entity: media_player.spotify
+                        card_mod:
+                          style: |
+                            ha-card { background: rgba(255,255,255,0.65); border-radius: 18px; padding: 10px 12px; }
             - type: grid
               columns: 4
               square: false

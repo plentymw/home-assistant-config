@@ -1,0 +1,75 @@
+﻿input_select:
+  household_audio_room:
+    name: Household audio room
+    options:
+      - Living room
+      - Kitchen
+      - Bathroom
+      - Main bedroom
+      - Izzy room
+      - All rooms
+    initial: Living room
+
+  household_audio_route:
+    name: Household audio route
+    options:
+      - Alexa
+      - MusicCast
+    initial: Alexa
+
+script:
+  household_audio_transfer_spotify:
+    alias: Household audio - transfer Spotify output
+    mode: single
+    sequence:
+      - variables:
+          room: "{{ states('input_select.household_audio_room') }}"
+          route_raw: "{{ states('input_select.household_audio_route') }}"
+          # Izzy room is Alexa-only
+          route: >-
+            {% if room == 'Izzy room' %}Alexa{% else %}{{ route_raw }}{% endif %}
+
+          # IMPORTANT:
+          # Replace the right-hand strings below with EXACT names from:
+          # Developer Tools -> States -> media_player.spotify -> attribute "source_list"
+          spotify_source: >-
+            {% if route == 'Alexa' and room == 'Living room' %}Living Room Echo{% elif
+               route == 'Alexa' and room == 'Kitchen' %}Kitchen Echo{% elif
+               route == 'Alexa' and room == 'Bathroom' %}Bathroom Echo{% elif
+               route == 'Alexa' and room == 'Main bedroom' %}Main Bedroom Echo{% elif
+               route == 'Alexa' and room == 'Izzy room' %}Izzy Echo{% elif
+               route == 'Alexa' and room == 'All rooms' %}Everywhere (Alexa Group){% elif
+
+               route == 'MusicCast' and room == 'Living room' %}MusicCast Living Room{% elif
+               route == 'MusicCast' and room == 'Kitchen' %}MusicCast Kitchen{% elif
+               route == 'MusicCast' and room == 'Bathroom' %}MusicCast Bathroom{% elif
+               route == 'MusicCast' and room == 'Main bedroom' %}MusicCast Main Bedroom{% elif
+               route == 'MusicCast' and room == 'All rooms' %}Whole Home (MusicCast Group){% else %}
+               Living Room Echo
+            {% endif %}
+
+      - action: media_player.select_source
+        target:
+          entity_id: media_player.spotify
+        data:
+          source: "{{ spotify_source }}"
+
+  household_audio_play_spotify:
+    alias: Household audio - play Spotify item (playlist/podcast)
+    mode: single
+    fields:
+      media_id:
+        description: "Spotify URL or URI (playlist/album/track/episode/show)"
+        example: "spotify:playlist:REPLACE_ME"
+      media_type:
+        description: "playlist / album / artist / track / music (often works for podcasts)"
+        example: "playlist"
+    sequence:
+      - action: script.household_audio_transfer_spotify
+      - delay: "00:00:01"
+      - action: media_player.play_media
+        target:
+          entity_id: media_player.spotify
+        data:
+          media_content_id: "{{ media_id }}"
+          media_content_type: "{{ media_type }}"
